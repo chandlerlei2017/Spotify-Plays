@@ -19,6 +19,7 @@ class App extends React.Component {
       authToken: '',
     };
   }
+  
 
   componentDidMount() {
     const token = window.location.hash.split("&")[0].split("=")[1];
