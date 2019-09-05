@@ -1,9 +1,8 @@
 import React from 'react';
 import logo, { ReactComponent } from './logo.svg';
 import './App.css';
-import LoginButton from './LoginButton.js'
 
-const authUrl = {
+const authUrlData = {
   endpoint: "https://accounts.spotify.com/authorize",
   clientId: "dd1a4178a17d46a0a922c0a19dfc148c",
   responseType: "token",
@@ -11,9 +10,7 @@ const authUrl = {
   scopes: ["user-read-recently-played","user-top-read"],
 };
 
-function authBuilder() {
-  return `${authUrl.endpoint}?client_id=${authUrl.clientId}&redirect_uri=${authUrl.redirectUri}&scope=${authUrl.scopes.join('%20')}&response_type=${authUrl.responseType}`;
-}
+const authUrl = `${authUrlData.endpoint}?client_id=${authUrlData.clientId}&redirect_uri=${authUrlData.redirectUri}&scope=${authUrlData.scopes.join('%20')}&response_type=${authUrlData.responseType}`;
 
 class App extends React.Component {
   constructor(props){
@@ -21,11 +18,19 @@ class App extends React.Component {
     this.state = {
       authToken: '',
     };
-    this.loginClick = this.loginClick.bind(this);
   }
 
-  loginClick() {
-    alert(authBuilder());
+  componentDidMount() {
+    const token = window.location.hash.split("&")[0].split("=")[1];
+    console.log(token);
+    if(token) {
+      this.setState({
+        authToken: token,
+      });
+    }
+  }
+
+  LoginButton() {
   }
 
   render() {
@@ -36,7 +41,7 @@ class App extends React.Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <LoginButton onClick={this.loginClick}></LoginButton>
+          {!(this.state.authToken) && <a className="btn btn-primary" href={authUrl}>Login</a>}
         </header>
       </div>
     );
