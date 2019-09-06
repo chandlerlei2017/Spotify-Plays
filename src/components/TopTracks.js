@@ -3,9 +3,9 @@ import * as $ from 'jquery';
 import Track from './Track.js'
 
 const urlData = {
-  endpoint: "https://api.spotify.com/v1/me/top/",
-  type: "tracks",
-  limit: "50",
+  endpoint: 'https://api.spotify.com/v1/me/top/',
+  type: 'tracks',
+  limit: '50',
 };
 
 class TopTracks extends React.Component {
@@ -22,13 +22,13 @@ class TopTracks extends React.Component {
     
     $.ajax({
       url: tracksUrl,
-      type: "GET",
+      type: 'GET',
       beforeSend: (xhr) => {
-        xhr.setRequestHeader("Authorization", "Bearer " + this.props.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + this.props.token);
       },
       success: (data) => {
-        let tracks = [];
-        for (let i = 0; i < data.total; i++) {
+        const tracks = [];
+        for (let i = 0; i < data.items.length; i++) {
           const artists = [];
 
           for (let j = 0; j < data.items[i].artists.length; j++) {
@@ -37,6 +37,7 @@ class TopTracks extends React.Component {
 
           tracks.push({
             name: data.items[i].name,
+            album: data.items[i].album.name,
             artists: artists
           });
         }
@@ -53,13 +54,13 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists }></Track>
+        <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
       )
     }
     return(
-      <div> 
+      <div className = 'mt-5'> 
         <h3>Top tracks for time period: {this.props.timeFrame} </h3>
-        <div className="row">
+        <div className='row'>
           {dispTracks}
         </div>
       </div>
@@ -67,4 +68,4 @@ class TopTracks extends React.Component {
   }
 }
 
-export default TopTracks
+export default TopTracks;
