@@ -7,9 +7,9 @@ import RecentPlayed from './components/RecentPlayed.js'
 
 const authUrlData = {
   endpoint: 'https://accounts.spotify.com/authorize',
-  clientId: 'dd1a4178a17d46a0a922c0a19dfc148c',
+  clientId: process.env.REACT_APP_CLIENT_ID,
   responseType: 'token',
-  redirectUri: 'https://upbeat-rosalind-c7ecc5.netlify.com/',
+  redirectUri: process.env.REACT_APP_REDIRECT_URI,
   scopes: ['user-read-recently-played','user-top-read'],
 };
 
