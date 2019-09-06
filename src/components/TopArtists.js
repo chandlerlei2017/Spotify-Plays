@@ -42,7 +42,7 @@ class TopArtists extends React.Component {
 
   render() {
     const artistList = this.state.artists.map((artist, index) => {
-      return <div className='col-sm-12'>{index + 1}: {artist}</div>
+      return <div className='col-sm-12' key={artist}>{index + 1}: {artist}</div>
     });
     
     return(
