@@ -29,8 +29,18 @@ class TopTracks extends React.Component {
       success: (data) => {
         let tracks = [];
         for (let i = 0; i < data.total; i++) {
-          tracks.push(data.items[i].name);
+          const artists = [];
+
+          for (let j = 0; j < data.items[i].artists.length; j++) {
+            artists.push(data.items[i].artists[j].name);
+          }
+
+          tracks.push({
+            name: data.items[i].name,
+            artists: artists
+          });
         }
+
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
         }));
@@ -43,13 +53,15 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <Track key={i} num={i + 1} name={this.state.trackList[i]}></Track>
+        <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists }></Track>
       )
     }
     return(
       <div> 
-        <h5>Top tracks for time period: {this.props.timeFrame} </h5>
-        {dispTracks}
+        <h3>Top tracks for time period: {this.props.timeFrame} </h3>
+        <div className="row">
+          {dispTracks}
+        </div>
       </div>
     );
   }
