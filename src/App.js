@@ -9,7 +9,7 @@ const authUrlData = {
   endpoint: 'https://accounts.spotify.com/authorize',
   clientId: 'dd1a4178a17d46a0a922c0a19dfc148c',
   responseType: 'token',
-  redirectUri: 'http://localhost:3000',
+  redirectUri: 'https://upbeat-rosalind-c7ecc5.netlify.com/',
   scopes: ['user-read-recently-played','user-top-read'],
 };
 
