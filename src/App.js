@@ -1,6 +1,7 @@
 import React from 'react';
 import logo, { ReactComponent } from './logo.svg';
 import './App.css';
+import TopTracks from './components/TopTracks.js'
 
 const authUrlData = {
   endpoint: "https://accounts.spotify.com/authorize",
@@ -35,17 +36,29 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          {!(this.state.authToken) && <a className="btn btn-primary" href={authUrl}>Login</a>}
-        </header>
-      </div>
-    );
+    if (!(this.state.authToken)) {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+              <a className="btn btn-primary" href={authUrl}>Login</a>
+          </header>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="p-3">
+          <p>You Have been authorized!</p>
+            <TopTracks timeFrame="short_term" token={this.state.authToken}></ TopTracks>
+            <TopTracks timeFrame="medium_term" token={this.state.authToken}></ TopTracks>
+            <TopTracks timeFrame="long_term" token={this.state.authToken}></ TopTracks>
+        </div>
+      );
+    }
   }
 }
 
