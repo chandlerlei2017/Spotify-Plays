@@ -39,7 +39,8 @@ class TopTracks extends React.Component {
             name: data.items[i].name,
             album: data.items[i].album.name,
             artists: artists,
-            image: data.items[i].album.images[2].url
+            image: data.items[i].album.images[2].url,
+            play: data.items[i].external_urls.spotify,
           });
         }
 

@@ -79,3 +79,15 @@ h1 {
   height: 32px;
   width: 32px;
 }
+
+.s-link {
+  color: white;
+  text-decoration: none !important;
+
+  -webkit-transition: color 200ms ease !important;
+  transition: color 200ms ease !important;
+}
+
+.s-link:hover {
+  color: #b3b3b3;
+}

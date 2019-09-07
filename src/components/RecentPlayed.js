@@ -42,6 +42,7 @@ class RecentPlayed extends React.Component {
             album: data.items[i].track.album.name,
             artists: artists,
             image: data.items[i].track.album.images[2].url,
+            play: data.items[i].track.external_urls.spotify,
             playedAt: data.items[i].played_at,
           });
         }
