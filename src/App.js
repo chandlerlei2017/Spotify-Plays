@@ -37,11 +37,8 @@ class App extends React.Component {
       return (
         <div className='App'>
           <header className='App-header'>
-            <img src={logo} className='App-logo' alt='logo' />
-            <p>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-              <a className='btn btn-primary' href={authUrl}>Login</a>
+              <h1 className='mb-5 title'>Spotify-Plays</h1>
+              <a className='btn btn-primary login-button pl-5 pr-5' href={authUrl}>LOGIN</a>
           </header>
         </div>
       );

@@ -1,22 +1,30 @@
+@fontface {
+  font-family: 'B612', sans-serif;
+  src: url('https://fonts.googleapis.com/css?family=B612&display=swap');
+}
+
+body {
+  font-family: 'B612', sans-serif !important;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
+
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* position: relative; */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/headphones2.jpg");
 }
 
 .App-link {
@@ -30,4 +38,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.btn-primary {
+  background: #1DB954 !important;
+  border-color: #1DB954 !important;
+  border-radius: 500px !important;
+  box-shadow: none !important;
+  color: #FFFFFF !important;
+  font-size: 19px !important;
+  font-weight: bold !important;
+}
+
+.btn-primary:hover {
+  background: #1ED760 !important;
+  border-color: #1ED760 !important;
+}
+
+.btn-primary:focus {
+  background-color: #1aa34a !important;
+  border-color: #1aa34a !important;
+  outline: 0 !important;
+}
+
+h1 {
+  font-size: 65px !important;
+}
+
+.title {
+  letter-spacing: 0.05em;
 }
