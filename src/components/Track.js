@@ -21,14 +21,16 @@ class Track extends React.Component {
         <div className='col-sm-3'>
           <a href={this.props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.num + ': ' + this.props.track.name}</a>
         </div>
-        <div className='col-sm-3 row'>
-          <div className='col-sm-2'>
-            <img src={this.props.track.image} alt={this.props.track.album + 'name'} className='track-image rounded'></img>
-            {' '}
-          </div>
-          <div className='col-sm-10'>
-            <a href={this.props.track.albumLink} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.track.album}</a>
-          </div>
+        <div className='col-sm-3'>
+          <a href={this.props.track.albumLink} target='_blank' rel='noopener noreferrer' className='s-link row'>
+            <div className='col-sm-2'>
+              <img src={this.props.track.image} alt={this.props.track.album + 'name'} className='track-image rounded'></img>
+              {' '}
+            </div>
+            <div className='col-sm-10'>
+              <span>{this.props.track.album}</span>
+            </div>
+          </a>
         </div>
         <div className='col-sm-3'>{artistList}</div>
       </React.Fragment>

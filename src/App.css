@@ -87,7 +87,15 @@ h1 {
   -webkit-transition: color 200ms ease !important;
   transition: color 200ms ease !important;
 }
+.track-image {
+  -webkit-transition: opacity 200ms ease !important;
+  transition: opacity 200ms ease !important;
+}
 
 .s-link:hover {
   color: #b3b3b3;
+}
+
+.s-link:hover .track-image {
+  opacity: 0.6;
 }
