@@ -6,12 +6,12 @@ class Track extends React.Component {
 
     for (let artist of Object.keys(this.props.track.artists)) {
       artistList.push(
-        <React.Fragment key={this.props.track.album}>
+        <React.Fragment key={artist}>
           <a href={this.props.track.artists[artist]} target='_blank' className='s-link' rel='noopener noreferrer'>{artist}</a>
         </React.Fragment>
       );
       artistList.push(
-        <React.Fragment>{', '}</React.Fragment>
+        <React.Fragment key={artist+'-1'}>{', '}</React.Fragment>
       )
     }
     artistList.splice(-1,1);
