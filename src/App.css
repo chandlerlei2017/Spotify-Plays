@@ -105,3 +105,10 @@ h1 {
   overflow: hidden !important;
   width: 100% !important;
 }
+
+.center {
+  position:absolute;
+  top:0; bottom:0;
+  margin: auto;
+  /* for horiz left-align, try "margin: auto auto auto 0" */
+}

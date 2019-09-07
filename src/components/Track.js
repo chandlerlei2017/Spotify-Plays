@@ -18,21 +18,21 @@ class Track extends React.Component {
 
     return(
       <React.Fragment>
-        <div className='col-sm-3'>
+        <div className='col-sm-3 center'>
           <a href={this.props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.num + ': ' + this.props.track.name}</a>
         </div>
-        <div className='col-sm-3'>
+        <div className='col-sm-3 center'>
           <a href={this.props.track.albumLink} target='_blank' rel='noopener noreferrer' className='s-link row'>
-            <div className='col-sm-2'>
+            <div className='col-sm-2 center'>
               <img src={this.props.track.image} alt={this.props.track.album + 'name'} className='track-image rounded'></img>
               {' '}
             </div>
-            <div className='col-sm-10'>
+            <div className='col-sm-10 center'>
               <span>{this.props.track.album}</span>
             </div>
           </a>
         </div>
-        <div className='col-sm-3'>{artistList}</div>
+        <div className='col-sm-3 center'>{artistList}</div>
       </React.Fragment>
     );
   }
