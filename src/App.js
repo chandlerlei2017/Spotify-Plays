@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TopTracks from './components/TopTracks.js'
 import TopArtists from './components/TopArtists.js'
@@ -46,22 +45,21 @@ class App extends React.Component {
     else {
       return (
         <div className='p-3'>
-          <p>You Have been authorized!</p>
-            <RecentPlayed token={this.state.authToken}></RecentPlayed>
-            <TopTracks timeFrame='short_term' token={this.state.authToken}></ TopTracks>
-            <TopTracks timeFrame='medium_term' token={this.state.authToken}></ TopTracks>
-            <TopTracks timeFrame='long_term' token={this.state.authToken}></ TopTracks>
-            <div className="row">
-              <div className="col-sm-4">
-                <TopArtists timeFrame='short_term' token={this.state.authToken}></ TopArtists>
-              </div>
-              <div className="col-sm-4">
-                <TopArtists timeFrame='medium_term' token={this.state.authToken}></ TopArtists>
-              </div>
-              <div className="col-sm-4">
-                <TopArtists timeFrame='long_term' token={this.state.authToken}></ TopArtists>
-              </div>
+          <RecentPlayed token={this.state.authToken}></RecentPlayed>
+          <TopTracks timeFrame='short_term' token={this.state.authToken}></ TopTracks>
+          <TopTracks timeFrame='medium_term' token={this.state.authToken}></ TopTracks>
+          <TopTracks timeFrame='long_term' token={this.state.authToken}></ TopTracks>
+          <div className="row">
+            <div className="col-sm-4">
+              <TopArtists timeFrame='short_term' token={this.state.authToken}></ TopArtists>
             </div>
+            <div className="col-sm-4">
+              <TopArtists timeFrame='medium_term' token={this.state.authToken}></ TopArtists>
+            </div>
+            <div className="col-sm-4">
+              <TopArtists timeFrame='long_term' token={this.state.authToken}></ TopArtists>
+            </div>
+          </div>
         </div>
       );
     }

@@ -19,7 +19,7 @@ class TopTracks extends React.Component {
   componentDidMount() {
     const timeRange = this.props.timeFrame;
     const tracksUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
-    
+
     $.ajax({
       url: tracksUrl,
       type: 'GET',
@@ -54,12 +54,15 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
+        <React.Fragment>
+          <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
+          <div className='col-sm-12'><hr className="track-divider"/></div>
+        </React.Fragment>
       )
     }
     return(
-      <div className = 'mt-5'> 
-        <h3>Top tracks for time period: {this.props.timeFrame} </h3>
+      <div className = 'mt-5'>
+        <h2 className="mb-5">Top tracks for time period: {this.props.timeFrame} </h2>
         <div className='row'>
           {dispTracks}
         </div>

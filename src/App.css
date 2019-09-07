@@ -5,6 +5,8 @@
 
 body {
   font-family: 'B612', sans-serif !important;
+  color: white !important;
+  background: #000000 !important;
 }
 
 .App {
@@ -68,3 +70,8 @@ h1 {
 .title {
   letter-spacing: 0.05em;
 }
+
+.track-divider {
+  border-color: #cccccc !important;
+}
+

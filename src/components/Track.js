@@ -5,7 +5,7 @@ class Track extends React.Component {
     return(
       <React.Fragment>
         <div className='col-sm-3'>{this.props.num}: {this.props.name}</div>
-        <div className='col-sm-4'>{this.props.album}</div>
+        <div className='col-sm-3'>{this.props.album}</div>
         <div className='col-sm-3'>{this.props.artists.join(', ')}</div>
       </React.Fragment>
     );

@@ -44,10 +44,10 @@ class TopArtists extends React.Component {
     const artistList = this.state.artists.map((artist, index) => {
       return <div className='col-sm-12' key={artist}>{index + 1}: {artist}</div>
     });
-    
+
     return(
-      <div className = 'mt-5'> 
-        <h3>Top artists for time period: {this.props.timeFrame} </h3>
+      <div className = 'mt-5'>
+        <h2 className="mb-5">Top artists for time period: {this.props.timeFrame} </h2>
         <div className='row'>
           {artistList}
         </div>

@@ -17,7 +17,7 @@ class RecentPlayed extends React.Component {
     super(props);
     this.state = {
       trackList: []
-    } 
+    }
   }
   componentDidMount() {
     const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`
@@ -69,14 +69,15 @@ class RecentPlayed extends React.Component {
       dispTracks.push(
         <React.Fragment key={i}>
           <Track num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
-          <div className='col-sm-2'>{dispDate}</div>
+          <div className='col-sm-3'>{dispDate}</div>
+          <div className='col-sm-12'><hr className="track-divider"/></div>
         </React.Fragment>
       )
     }
 
     return(
-      <div className = 'mt-5'> 
-        <h3>Recently Played Tracks: </h3>
+      <div className = 'mt-5'>
+        <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
           {dispTracks}
         </div>
