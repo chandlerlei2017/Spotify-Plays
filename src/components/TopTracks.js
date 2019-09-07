@@ -58,10 +58,9 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <React.Fragment key={i}>
+        <div className='row track rounded p-3 ml-3 mb-3 mr-3'>
           <Track num={i + 1} track={ this.state.trackList[i] }></Track>
-          <div className='col-sm-12'><hr className="track-divider"/></div>
-        </React.Fragment>
+        </div>
       )
     }
     return(
