@@ -41,6 +41,7 @@ class RecentPlayed extends React.Component {
             name: data.items[i].track.name,
             album: data.items[i].track.album.name,
             artists: artists,
+            image: data.items[i].track.album.images[2].url,
             playedAt: data.items[i].played_at,
           });
         }
@@ -58,7 +59,6 @@ class RecentPlayed extends React.Component {
     for (let i = 0; i < this.state.trackList.length; i++) {
       const date = parseISOString(this.state.trackList[i].playedAt);
       const today = new Date();
-      console.log(date);
       let dispDate;
       if (date.toDateString() === today.toDateString()) {
         dispDate = date.toLocaleTimeString();
@@ -68,7 +68,7 @@ class RecentPlayed extends React.Component {
       }
       dispTracks.push(
         <React.Fragment key={i}>
-          <Track num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
+          <Track num={i + 1} track={this.state.trackList[i]}></Track>
           <div className='col-sm-3'>{dispDate}</div>
           <div className='col-sm-12'><hr className="track-divider"/></div>
         </React.Fragment>

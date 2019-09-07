@@ -38,7 +38,8 @@ class TopTracks extends React.Component {
           tracks.push({
             name: data.items[i].name,
             album: data.items[i].album.name,
-            artists: artists
+            artists: artists,
+            image: data.items[i].album.images[2].url
           });
         }
 
@@ -54,8 +55,8 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <React.Fragment>
-          <Track key={i} num={i + 1} name={ this.state.trackList[i].name } artists={ this.state.trackList[i].artists } album={ this.state.trackList[i].album }></Track>
+        <React.Fragment key={i}>
+          <Track num={i + 1} track={ this.state.trackList[i] }></Track>
           <div className='col-sm-12'><hr className="track-divider"/></div>
         </React.Fragment>
       )

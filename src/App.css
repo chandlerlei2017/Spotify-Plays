@@ -75,3 +75,7 @@ h1 {
   border-color: #cccccc !important;
 }
 
+.track-image {
+  height: 32px;
+  width: 32px;
+}
