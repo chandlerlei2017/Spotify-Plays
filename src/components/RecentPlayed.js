@@ -31,10 +31,10 @@ class RecentPlayed extends React.Component {
       success: (data) => {
         const tracks = [];
         for (let i = 0; i < data.items.length; i++) {
-          const artists = [];
+          let artists = {};
 
           for (let j = 0; j < data.items[i].track.artists.length; j++) {
-            artists.push(data.items[i].track.artists[j].name);
+            artists[data.items[i].track.artists[j].name] = data.items[i].track.artists[j].external_urls.spotify;
           }
 
           tracks.push({
@@ -43,6 +43,7 @@ class RecentPlayed extends React.Component {
             artists: artists,
             image: data.items[i].track.album.images[2].url,
             play: data.items[i].track.external_urls.spotify,
+            albumLink: data.items[i].track.album.external_urls.spotify,
             playedAt: data.items[i].played_at,
           });
         }

@@ -29,10 +29,10 @@ class TopTracks extends React.Component {
       success: (data) => {
         const tracks = [];
         for (let i = 0; i < data.items.length; i++) {
-          const artists = [];
+          const artists = {};
 
           for (let j = 0; j < data.items[i].artists.length; j++) {
-            artists.push(data.items[i].artists[j].name);
+            artists[data.items[i].artists[j].name] = data.items[i].artists[j].external_urls.spotify;
           }
 
           tracks.push({
@@ -41,6 +41,7 @@ class TopTracks extends React.Component {
             artists: artists,
             image: data.items[i].album.images[2].url,
             play: data.items[i].external_urls.spotify,
+            albumLink: data.items[i].album.external_urls.spotify
           });
         }
 

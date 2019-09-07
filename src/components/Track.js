@@ -2,6 +2,20 @@ import React from 'react';
 
 class Track extends React.Component {
   render() {
+    const artistList = [];
+
+    for (let artist of Object.keys(this.props.track.artists)) {
+      artistList.push(
+        <React.Fragment key={this.props.track.album}>
+          <a href={this.props.track.artists[artist]} target='_blank' className='s-link' rel='noopener noreferrer'>{artist}</a>
+        </React.Fragment>
+      );
+      artistList.push(
+        <React.Fragment>{', '}</React.Fragment>
+      )
+    }
+    artistList.splice(-1,1);
+
     return(
       <React.Fragment>
         <div className='col-sm-3'>
@@ -13,10 +27,10 @@ class Track extends React.Component {
             {' '}
           </div>
           <div className='col-sm-10'>
-            {this.props.track.album}
+            <a href={this.props.track.albumLink} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.track.album}</a>
           </div>
         </div>
-        <div className='col-sm-3'>{this.props.track.artists.join(', ')}</div>
+        <div className='col-sm-3'>{artistList}</div>
       </React.Fragment>
     );
   }
