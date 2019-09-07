@@ -107,7 +107,7 @@ h1 {
 }
 
 .center {
-  position:absolute;
+  position: relative;
   top:0; bottom:0;
   margin: auto;
   /* for horiz left-align, try "margin: auto auto auto 0" */
