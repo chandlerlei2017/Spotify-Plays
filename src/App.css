@@ -72,7 +72,8 @@ h1 {
 }
 
 .track-divider {
-  border-color: #000000 !important;
+  border-color: #282828 !important;
+  width: 100% !important;
 }
 
 .track-image {
@@ -108,7 +109,11 @@ h1 {
 
 .center {
   position: relative;
-  top:0; bottom:0;
+  top:0; bottom:0; left: 0; right:0 ;
   margin: auto;
   /* for horiz left-align, try "margin: auto auto auto 0" */
+}
+
+.full-width {
+  width: 100%;
 }

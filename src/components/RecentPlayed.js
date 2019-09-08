@@ -70,7 +70,7 @@ class RecentPlayed extends React.Component {
         dispDate = date.toLocaleDateString();
       }
       dispTracks.push(
-        <Track num={i + 1} track={this.state.trackList[i]} dispDate={dispDate}></Track>
+        <Track key={i} num={i + 1} track={this.state.trackList[i]} dispDate={dispDate}></Track>
       )
     }
 
@@ -78,6 +78,21 @@ class RecentPlayed extends React.Component {
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
+          <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
+            <div className='col-sm-3 center'>
+              <h4>Song</h4>
+            </div>
+            <div className='col-sm-3 center'>
+              <h4>Album</h4>
+            </div>
+            <div className='col-sm-3 center'>
+              <h4>Artists</h4>
+            </div>
+            <div className='col-sm-3 center'>
+              <h4>Time of Play</h4>
+            </div>
+          </div>
+          <hr className='track-divider ml-3 mr-3'/>
           {dispTracks}
         </div>
       </div>

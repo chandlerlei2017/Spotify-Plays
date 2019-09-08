@@ -58,13 +58,27 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <Track num={i + 1} track={ this.state.trackList[i] }></Track>
+        <Track key={i} num={i + 1} track={ this.state.trackList[i] }></Track>
       )
     }
     return(
       <div className = 'mt-5'>
         <h2 className="mb-5">Top tracks for time period: {this.props.timeFrame} </h2>
         <div className='row'>
+          <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
+            <div className='col-sm-3 center'>
+              <h4>Song</h4>
+            </div>
+            <div className='col-sm-3 center'>
+              <h4>Album</h4>
+            </div>
+            <div className='col-sm-3 center'>
+              <h4>Artists</h4>
+            </div>
+            <div className='col-sm-3 center'>
+            </div>
+          </div>
+          <hr className='track-divider ml-3 mr-3'/>
           {dispTracks}
         </div>
       </div>
