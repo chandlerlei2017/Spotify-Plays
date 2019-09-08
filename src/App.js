@@ -3,7 +3,6 @@ import './App.scss';
 import TopTracks from './components/TopTracks.js'
 import TopArtists from './components/TopArtists.js'
 import RecentPlayed from './components/RecentPlayed.js'
-
 import * as $ from 'jquery';
 
 const testUrl = 'https://api.spotify.com/v1/me'
@@ -23,30 +22,42 @@ class App extends React.Component {
     super(props);
     this.state = {
       authToken: '',
+      loaded: false,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const token = window.location.hash.split('&')[0].split('=')[1];
 
     if(token) {
-      $.ajax({
-        url: testUrl,
-        type: 'GET',
-        beforeSend: (xhr) => {
-          xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-        },
-        success: (data) => {
-          this.setState({
-            authToken: token,
-          });
-        }
-      });
+      try {
+        await $.ajax({
+          url: testUrl,
+          type: 'GET',
+          beforeSend: (xhr) => {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+          },
+          success: () => {
+            this.setState({
+              authToken: token,
+            });
+          },
+        });
+      } catch(e) {
+        console.log(e);
+      }
     }
+
+    this.setState({
+      loaded: true,
+    });
   }
 
   render() {
-    if (!(this.state.authToken)) {
+    if (this.state.loaded === false) {
+      return (null);
+    }
+    else if (!(this.state.authToken)) {
       return (
         <div className='App'>
           <header className='App-header'>
