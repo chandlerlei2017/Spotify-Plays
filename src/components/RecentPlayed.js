@@ -62,9 +62,17 @@ class RecentPlayed extends React.Component {
     for (let i = 0; i < this.state.trackList.length; i++) {
       const date = parseISOString(this.state.trackList[i].playedAt);
       const today = new Date();
-      let dispDate;
+
+      let yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      console.log((today-date)/3600000);
+
+      let dispDate = '';
       if (date.toDateString() === today.toDateString()) {
         dispDate = date.toLocaleTimeString();
+      }
+      else if ((today-date)/3600000 < 24) {
+        dispDate = 'Yesterday - ' + date.toLocaleTimeString();
       }
       else {
         dispDate = date.toLocaleDateString();
