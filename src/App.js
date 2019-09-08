@@ -4,6 +4,10 @@ import TopTracks from './components/TopTracks.js'
 import TopArtists from './components/TopArtists.js'
 import RecentPlayed from './components/RecentPlayed.js'
 
+import * as $ from 'jquery';
+
+const testUrl = 'https://api.spotify.com/v1/me'
+
 const authUrlData = {
   endpoint: 'https://accounts.spotify.com/authorize',
   clientId: process.env.REACT_APP_CLIENT_ID,
@@ -24,9 +28,19 @@ class App extends React.Component {
 
   componentDidMount() {
     const token = window.location.hash.split('&')[0].split('=')[1];
+
     if(token) {
-      this.setState({
-        authToken: token,
+      $.ajax({
+        url: testUrl,
+        type: 'GET',
+        beforeSend: (xhr) => {
+          xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        },
+        success: (data) => {
+          this.setState({
+            authToken: token,
+          });
+        }
       });
     }
   }
