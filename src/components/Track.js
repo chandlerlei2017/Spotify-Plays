@@ -17,7 +17,7 @@ class Track extends React.Component {
     artistList.splice(-1,1);
 
     return(
-      <React.Fragment>
+      <div className='row track rounded p-3 ml-3 mb-3 mr-3'>
         <div className='col-sm-3 center'>
           <a href={this.props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.num + ': ' + this.props.track.name}</a>
         </div>
@@ -33,7 +33,8 @@ class Track extends React.Component {
           </a>
         </div>
         <div className='col-sm-3 center'>{artistList}</div>
-      </React.Fragment>
+        <div className='col-sm-3 center'>{this.props.dispDate ? this.props.dispDate : ''}</div>
+      </div>
     );
   }
 }
