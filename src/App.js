@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import TopTracks from './components/TopTracks.js'
 import TopArtists from './components/TopArtists.js'
 import RecentPlayed from './components/RecentPlayed.js'

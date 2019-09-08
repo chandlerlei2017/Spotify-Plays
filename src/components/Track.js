@@ -17,7 +17,7 @@ class Track extends React.Component {
     artistList.splice(-1,1);
 
     return(
-      <div className='row track rounded p-3 ml-3 mb-3 mr-3'>
+      <div className='row track rounded p-3 ml-3 mb-3 mr-3 transition-3d-hover'>
         <div className='col-sm-3 center'>
           <a href={this.props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{this.props.num + ': ' + this.props.track.name}</a>
         </div>

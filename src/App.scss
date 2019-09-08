@@ -1,3 +1,17 @@
+$g-transition-timing:                                       .3s !default;
+$g-transition-timing-sm:                                    .2s !default;
+$g-transition-timing-md:                                    .4s !default;
+$g-transition-function:                                     ease !default;
+
+.transition-3d-hover {
+  transition: all $g-transition-timing-sm $g-transition-function;
+
+  &:hover,
+  &:focus {
+    transform: translateY(-3px);
+  }
+}
+
 @fontface {
   font-family: 'B612', sans-serif;
   src: url('https://fonts.googleapis.com/css?family=B612&display=swap');
