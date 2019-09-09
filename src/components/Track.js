@@ -33,7 +33,14 @@ class Track extends React.Component {
           </a>
         </div>
         <div className='col-sm-3 center'>{artistList}</div>
-        <div className='col-sm-3 center'>{this.props.dispDate ? this.props.dispDate : ''}</div>
+        <div className='col-sm-3 center row'>
+          <div className='col-sm-6 center'>
+            {this.props.track.popularity}
+          </div>
+          <div className='col-sm-6 center'>
+            {this.props.dispDate ? this.props.dispDate : ''}
+          </div>
+        </div>
       </div>
     );
   }
