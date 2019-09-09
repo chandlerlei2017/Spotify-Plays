@@ -42,7 +42,7 @@ class TopTracks extends React.Component {
             image: data.items[i].album.images[2].url,
             play: data.items[i].external_urls.spotify,
             popularity: data.items[i].popularity,
-            albumLink: data.items[i].album.external_urls.spotify,
+            albumLink: data.items[i].album.external_urls.spotify
           });
         }
 
@@ -75,7 +75,10 @@ class TopTracks extends React.Component {
             <div className='col-sm-3 center'>
               <h4>Artists</h4>
             </div>
-            <div className='col-sm-3 center'>
+            <div className='col-sm-3 center row'>
+              <div className='col-sm-6'>
+                <h4>Popularity</h4>
+              </div>
             </div>
           </div>
           <hr className='track-divider ml-3 mr-3'/>
