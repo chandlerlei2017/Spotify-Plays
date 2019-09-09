@@ -123,11 +123,22 @@ h1 {
 
 .center {
   position: relative;
-  top:0; bottom:0; left: 0; right:0 ;
+  top:0; bottom:0;
   margin: auto;
   /* for horiz left-align, try "margin: auto auto auto 0" */
 }
 
 .full-width {
   width: 100%;
+}
+
+.progress {
+  background: #ffffff !important;
+}
+
+.fire {
+  color: #ce2029 !important;
+  position: absolute !important;
+  overflow: visible !important;
+  margin-left: -17px;
 }

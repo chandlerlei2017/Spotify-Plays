@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFireAlt } from '@fortawesome/free-solid-svg-icons'
+
 
 class Track extends React.Component {
   render() {
@@ -35,7 +38,14 @@ class Track extends React.Component {
         <div className='col-sm-3 center'>{artistList}</div>
         <div className='col-sm-3 center row'>
           <div className='col-sm-6 center'>
-            {this.props.track.popularity}
+            <div className="progress">
+              <div className="progress-bar progress-bar-striped bg-danger progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
+                <strong>{this.props.track.popularity}</strong>
+              </div>
+              <div>
+                <FontAwesomeIcon className='fire center' icon={faFireAlt} size='2x' />
+              </div>
+            </div>
           </div>
           <div className='col-sm-6 center'>
             {this.props.dispDate ? this.props.dispDate : ''}
