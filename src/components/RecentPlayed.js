@@ -89,10 +89,10 @@ class RecentPlayed extends React.Component {
             <div className='col-sm-3 center'>
               <h4>Album</h4>
             </div>
-            <div className='col-sm-3 center'>
+            <div className='col-sm-2 center'>
               <h4>Artists</h4>
             </div>
-            <div className='col-sm-3 center row'>
+            <div className='col-sm-4 center row'>
               <div className='col-sm-6 center'>
                 <h4>Popularity</h4>
               </div>

@@ -35,8 +35,8 @@ class Track extends React.Component {
             </div>
           </a>
         </div>
-        <div className='col-sm-3 center'>{artistList}</div>
-        <div className='col-sm-3 center row'>
+        <div className='col-sm-2 center'>{artistList}</div>
+        <div className='col-sm-4 center row'>
           <div className='col-sm-6 center'>
             <div className="progress">
               <div className="progress-bar progress-bar-striped bg-danger progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
