@@ -61,9 +61,16 @@ class TopTracks extends React.Component {
         <Track key={i} num={i + 1} track={ this.state.trackList[i] }></Track>
       )
     }
+
+    const mapping = {
+      'short_term': 'Short Term',
+      'medium_term': 'Medium Term',
+      'long_term': 'Long Term',
+    }
+
     return(
       <div className = 'mt-5'>
-        <h2 className="mb-5">Top tracks for time period: {this.props.timeFrame} </h2>
+        <h2 className="mb-5">Top Tracks ({mapping[this.props.timeFrame]}): </h2>
         <div className='row'>
           <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
             <div className='col-sm-3 center'>

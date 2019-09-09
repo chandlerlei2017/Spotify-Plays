@@ -42,16 +42,22 @@ class TopArtists extends React.Component {
 
   render() {
     const artistList = this.state.artists.map((artist, index) => {
-      return <div className='col-sm-12' key={artist}>{index + 1}: {artist}</div>
+      return <div className='col-sm-12 track p-3 ml-3 mb-3 mr-3 rounded' key={artist}>{index + 1}: {artist}</div>
     });
 
+    const mapping = {
+      'short_term': 'Short Term',
+      'medium_term': 'Medium Term',
+      'long_term': 'Long Term',
+    }
+
     return(
-      <div className = 'mt-5'>
-        <h2 className="mb-5">Top artists for time period: {this.props.timeFrame} </h2>
+      <React.Fragment>
+        <h2 className="mt-5 mb-5">Top Artists ({mapping[this.props.timeFrame]}): </h2>
         <div className='row'>
           {artistList}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
