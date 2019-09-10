@@ -1,5 +1,6 @@
 import React from 'react';
 import * as $ from 'jquery';
+import Artist from './Artist.js'
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -30,7 +31,12 @@ class TopArtists extends React.Component {
       success: (data) => {
         const artists = [];
         for (let i = 0; i < data.items.length; i++) {
-          artists.push(data.items[i].name);
+          artists.push({
+            name: data.items[i].name,
+            artistLink: data.items[i].external_urls.spotify,
+            imageLink: data.items[i].images[2].url,
+            popularity: data.items[i].popularity,
+          });
         }
 
         this.setState(prevState => ({
@@ -42,7 +48,7 @@ class TopArtists extends React.Component {
 
   render() {
     const artistList = this.state.artists.map((artist, index) => {
-      return <div className='col-sm-12 track p-3 ml-3 mb-3 mr-3 rounded' key={artist}>{index + 1}: {artist}</div>
+      return <Artist num={index+1} key={artist.name} artist={artist}> </Artist>
     });
 
     const mapping = {

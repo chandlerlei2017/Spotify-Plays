@@ -26,12 +26,11 @@ class Track extends React.Component {
         </div>
         <div className='col-sm-3 center'>
           <a href={this.props.track.albumLink} target='_blank' rel='noopener noreferrer' className='s-link row'>
-            <div className='col-sm-2 center'>
+            <div className='col-sm-1 center'>
               <img src={this.props.track.image} alt={this.props.track.album + 'name'} className='track-image rounded'></img>
-              {' '}
             </div>
-            <div className='col-sm-10 center'>
-              <span>{this.props.track.album}</span>
+            <div className='col-sm-11 center'>
+              <span className='ml-1'>{this.props.track.album}</span>
             </div>
           </a>
         </div>
