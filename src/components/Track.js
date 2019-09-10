@@ -4,8 +4,20 @@ import { faFireAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 class Track extends React.Component {
+  dateComp() {
+    if (this.props.dispDate) {
+      return(
+        <div className='col-sm-4 center'>
+          {this.props.dispDate}
+        </div>
+      );
+    }
+    return null;
+  }
+
   render() {
     const artistList = [];
+    const divNum = this.props.dispDate ? ['2','4','8'] : ['3','3','12'];
 
     for (let artist of Object.keys(this.props.track.artists)) {
       artistList.push(
@@ -26,17 +38,17 @@ class Track extends React.Component {
         </div>
         <div className='col-sm-3 center'>
           <a href={this.props.track.albumLink} target='_blank' rel='noopener noreferrer' className='s-link row'>
-            <div className='col-sm-1 center'>
+            <div className='col-sm-2 center'>
               <img src={this.props.track.image} alt={this.props.track.album + 'name'} className='track-image rounded'></img>
             </div>
-            <div className='col-sm-11 center'>
-              <span className='ml-1'>{this.props.track.album}</span>
+            <div className='col-sm-10 center'>
+              <span>{this.props.track.album}</span>
             </div>
           </a>
         </div>
-        <div className='col-sm-2 center'>{artistList}</div>
-        <div className='col-sm-4 center row'>
-          <div className='col-sm-6 center'>
+        <div className={`col-sm-${divNum[0]} center`} >{artistList}</div>
+        <div className={`col-sm-${divNum[1]} center row`}>
+          <div className={`col-sm-${divNum[2]} center`}>
             <div className="progress">
               <div className="progress-bar progress-bar-striped bg-danger progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
                 <strong>{this.props.track.popularity}</strong>
@@ -46,9 +58,7 @@ class Track extends React.Component {
               </div>
             </div>
           </div>
-          <div className='col-sm-6 center'>
-            {this.props.dispDate ? this.props.dispDate : ''}
-          </div>
+          {this.dateComp()}
         </div>
       </div>
     );
