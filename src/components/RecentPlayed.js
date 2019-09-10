@@ -1,6 +1,8 @@
 import React from 'react';
 import * as $ from 'jquery';
 import Track from './Track.js'
+import {Doughnut} from 'react-chartjs-2';
+import 'chartjs-plugin-colorschemes';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -16,7 +18,8 @@ class RecentPlayed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trackList: []
+      trackList: [],
+      artistPlays: new Map(),
     }
   }
   componentDidMount() {
@@ -30,11 +33,21 @@ class RecentPlayed extends React.Component {
       },
       success: (data) => {
         const tracks = [];
+        let artistPlays = new Map();
+
         for (let i = 0; i < data.items.length; i++) {
           let artists = {};
 
           for (let j = 0; j < data.items[i].track.artists.length; j++) {
-            artists[data.items[i].track.artists[j].name] = data.items[i].track.artists[j].external_urls.spotify;
+            const artistName = data.items[i].track.artists[j].name;
+            artists[artistName] = data.items[i].track.artists[j].external_urls.spotify;
+
+            if (artistPlays.has(artistName)) {
+              artistPlays.set(artistName,  artistPlays.get(artistName) + 1);
+            }
+            else {
+              artistPlays.set(artistName, 1);
+            }
           }
 
           tracks.push({
@@ -51,6 +64,7 @@ class RecentPlayed extends React.Component {
 
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
+          artistPlays: artistPlays,
         }));
       }
     });
@@ -78,6 +92,24 @@ class RecentPlayed extends React.Component {
       )
     }
 
+    const chartData = {
+      labels: [...this.state.artistPlays.keys()],
+      datasets: [{
+        data: [...this.state.artistPlays.values()],
+      }],
+    }
+
+    const chartOptions = {
+      legend: {
+        display: false,
+      },
+      plugins: {
+        colorschemes: {
+            scheme: 'brewer.Paired12'
+        }
+      }
+    }
+
     return(
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
@@ -102,6 +134,7 @@ class RecentPlayed extends React.Component {
             </div>
           </div>
           <hr className='track-divider ml-3 mr-3'/>
+          <Doughnut data={chartData} options={chartOptions}/>
           {dispTracks}
         </div>
       </div>
