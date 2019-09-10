@@ -92,14 +92,14 @@ class RecentPlayed extends React.Component {
       )
     }
 
-    const chartData = {
+    const pieChartData = {
       labels: [...this.state.artistPlays.keys()],
       datasets: [{
         data: [...this.state.artistPlays.values()],
       }],
     }
 
-    const chartOptions = {
+    const pieChartOptions = {
       legend: {
         display: false,
       },
@@ -110,10 +110,29 @@ class RecentPlayed extends React.Component {
       }
     }
 
+    const lineGraphData = {
+
+    }
+
+    const lineGraphOptions = {
+
+    }
+
     return(
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
+          <div className='col-sm-6'>
+            <div className='p-3 ml-3 mb-3 mr-3 track rounded'>
+              <Doughnut data={pieChartData} options={pieChartOptions}/>
+            </div>
+          </div>
+          <div className='col-sm-6'>
+            <div className='p-3 ml-3 mb-3 mr-3 track rounded'>
+              test
+            </div>
+          </div>
+
           <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
             <div className='col-sm-3 center'>
               <h4>Song</h4>
@@ -134,7 +153,6 @@ class RecentPlayed extends React.Component {
             </div>
           </div>
           <hr className='track-divider ml-3 mr-3'/>
-          <Doughnut data={chartData} options={chartOptions}/>
           {dispTracks}
         </div>
       </div>
