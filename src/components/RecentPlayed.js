@@ -1,8 +1,37 @@
 import React from 'react';
 import * as $ from 'jquery';
 import Track from './Track.js'
-import {Doughnut} from 'react-chartjs-2';
+import {Doughnut, Scatter} from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
+
+const data = {
+  labels: ['Scatter'],
+  datasets: [
+    {
+      label: 'My First dataset',
+      fill: false,
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      pointBorderColor: 'rgba(75,192,192,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [
+        { x: 0, y: 1 },
+        { x: 1.1, y: 1 },
+        { x: 1.2, y: 1 },
+        { x: 1.3, y: 1 },
+        { x: 1.4, y: 1 },
+        { x: 1.5, y: 1 },
+        { x: 12, y: 1 },
+      ]
+    }
+  ]
+};
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -13,6 +42,16 @@ const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/player/recently-played',
   limit: '50',
 };
+
+function getTimeRange(date1, date2){
+  const mins = (parseISOString(date1) - parseISOString(date2))/60000;
+  let timeRange = '1';
+  let unit = 'M'
+
+  if (mins > 525600) {
+
+  }
+}
 
 class RecentPlayed extends React.Component {
   constructor(props) {
@@ -34,6 +73,8 @@ class RecentPlayed extends React.Component {
       success: (data) => {
         const tracks = [];
         let artistPlays = new Map();
+
+        console.log(getTimeRange(data.items[0].played_at, data.items[data.items.length - 1].played_at));
 
         for (let i = 0; i < data.items.length; i++) {
           let artists = {};
@@ -111,7 +152,7 @@ class RecentPlayed extends React.Component {
     }
 
     const lineGraphData = {
-
+      
     }
 
     const lineGraphOptions = {
@@ -123,13 +164,13 @@ class RecentPlayed extends React.Component {
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
           <div className='col-sm-6'>
-            <div className='p-3 ml-3 mb-3 mr-3 track rounded'>
+            <div className='p-3 mb-3 track rounded'>
               <Doughnut data={pieChartData} options={pieChartOptions}/>
             </div>
           </div>
           <div className='col-sm-6'>
-            <div className='p-3 ml-3 mb-3 mr-3 track rounded'>
-              test
+            <div className='p-3 mb-3 track rounded'>
+              <Scatter data={data} />
             </div>
           </div>
 
