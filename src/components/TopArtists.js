@@ -69,4 +69,3 @@ class TopArtists extends React.Component {
 }
 
 export default TopArtists;
-

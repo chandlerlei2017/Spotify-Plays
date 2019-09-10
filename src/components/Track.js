@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireAlt } from '@fortawesome/free-solid-svg-icons'
+import PopularityBar from './PopularityBar.js'
 
 
 class Track extends React.Component {
@@ -49,14 +50,7 @@ class Track extends React.Component {
         <div className={`col-sm-${divNum[0]} center`} >{artistList}</div>
         <div className={`col-sm-${divNum[1]} center row`}>
           <div className={`col-sm-${divNum[2]} center`}>
-            <div className="progress">
-              <div className="progress-bar progress-bar-striped bg-orange progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
-                <strong>{this.props.track.popularity}</strong>
-              </div>
-              <div>
-                <FontAwesomeIcon className='fire center' icon={faFireAlt} size='2x' />
-              </div>
-            </div>
+            <PopularityBar popularity={this.props.track.popularity}></PopularityBar>
           </div>
           {this.dateComp()}
         </div>
