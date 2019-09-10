@@ -50,7 +50,7 @@ class Track extends React.Component {
         <div className={`col-sm-${divNum[1]} center row`}>
           <div className={`col-sm-${divNum[2]} center`}>
             <div className="progress">
-              <div className="progress-bar progress-bar-striped bg-danger progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
+              <div className="progress-bar progress-bar-striped bg-orange progress-bar-animated" style={{width: `${this.props.track.popularity}%`}} role="progressbar" aria-valuenow={this.props.track.popularity} aria-valuemin="0" aria-valuemax="100">
                 <strong>{this.props.track.popularity}</strong>
               </div>
               <div>

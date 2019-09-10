@@ -15,7 +15,7 @@ class Artist extends React.Component {
         </div>
         <div className='col-sm-6 center'>
           <div className="progress">
-            <div className="progress-bar progress-bar-striped bg-danger progress-bar-animated" style={{width: `${this.props.artist.popularity}%`}} role="progressbar" aria-valuenow={this.props.artist.popularity} aria-valuemin="0" aria-valuemax="100">
+            <div className="progress-bar progress-bar-striped bg-orange progress-bar-animated" style={{width: `${this.props.artist.popularity}%`}} role="progressbar" aria-valuenow={this.props.artist.popularity} aria-valuemin="0" aria-valuemax="100">
               <strong>{this.props.artist.popularity}</strong>
             </div>
             <div>
