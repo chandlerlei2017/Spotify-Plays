@@ -135,7 +135,7 @@ class RecentPlayed extends React.Component {
           backgroundColor: 'rgba(75,192,192,0.4)',
           pointBorderColor: 'rgba(75,192,192,1)',
           pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
+          pointBorderWidth: 2,
           pointHoverRadius: 5,
           pointHoverBackgroundColor: 'rgba(75,192,192,1)',
           pointHoverBorderColor: 'rgba(220,220,220,1)',
@@ -157,8 +157,18 @@ class RecentPlayed extends React.Component {
                 min: 0,
                 max: 6,
             }
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 2,
+            stepSize: 1,
+            callback: () => {
+              return null;
+            }
+          }
         }]
-    }
+      }
     }
 
     return(
