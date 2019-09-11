@@ -1,6 +1,7 @@
 import React from 'react';
 import * as $ from 'jquery';
 import Track from './Track.js'
+import {authContext} from './AuthContext.js'
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -16,6 +17,8 @@ class TopTracks extends React.Component {
       trackList: [],
     }
   }
+  static contextType = authContext;
+
   componentDidMount() {
     const timeRange = this.props.timeFrame;
     const tracksUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
@@ -24,7 +27,7 @@ class TopTracks extends React.Component {
       url: tracksUrl,
       type: 'GET',
       beforeSend: (xhr) => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.props.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
       },
       success: (data) => {
         const tracks = [];

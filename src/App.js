@@ -4,6 +4,8 @@ import TopTracks from './components/TopTracks.js'
 import TopArtists from './components/TopArtists.js'
 import RecentPlayed from './components/RecentPlayed.js'
 import * as $ from 'jquery';
+import Background from './assets/headphones2.jpg'
+import {authContext} from './components/AuthContext.js'
 
 const testUrl = 'https://api.spotify.com/v1/me'
 
@@ -60,7 +62,7 @@ class App extends React.Component {
     else if (!(this.state.authToken)) {
       return (
         <div className='App'>
-          <header className='App-header'>
+          <header className='App-header' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${Background})`}}>
               <h1 className='mb-5 title'>Spotify-Plays</h1>
               <a className='btn btn-primary login-button pl-5 pr-5' href={authUrl}>LOGIN</a>
           </header>
@@ -70,21 +72,23 @@ class App extends React.Component {
     else {
       return (
         <div className='p-3'>
-          <RecentPlayed token={this.state.authToken}></RecentPlayed>
-          <TopTracks timeFrame='short_term' token={this.state.authToken}></ TopTracks>
-          <TopTracks timeFrame='medium_term' token={this.state.authToken}></ TopTracks>
-          <TopTracks timeFrame='long_term' token={this.state.authToken}></ TopTracks>
-          <div className="row">
-            <div className="col-sm-4">
-              <TopArtists timeFrame='short_term' token={this.state.authToken}></ TopArtists>
+          <authContext.Provider value={this.state.authToken}>
+            <RecentPlayed token={this.state.authToken}></RecentPlayed>
+            <TopTracks timeFrame='short_term' token={this.state.authToken}></ TopTracks>
+            <TopTracks timeFrame='medium_term' token={this.state.authToken}></ TopTracks>
+            <TopTracks timeFrame='long_term' token={this.state.authToken}></ TopTracks>
+            <div className="row">
+              <div className="col-sm-4">
+                <TopArtists timeFrame='short_term' token={this.state.authToken}></ TopArtists>
+              </div>
+              <div className="col-sm-4">
+                <TopArtists timeFrame='medium_term' token={this.state.authToken}></ TopArtists>
+              </div>
+              <div className="col-sm-4">
+                <TopArtists timeFrame='long_term' token={this.state.authToken}></ TopArtists>
+              </div>
             </div>
-            <div className="col-sm-4">
-              <TopArtists timeFrame='medium_term' token={this.state.authToken}></ TopArtists>
-            </div>
-            <div className="col-sm-4">
-              <TopArtists timeFrame='long_term' token={this.state.authToken}></ TopArtists>
-            </div>
-          </div>
+          </authContext.Provider>
         </div>
       );
     }

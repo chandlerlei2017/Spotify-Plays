@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import Track from './Track.js'
 import {Doughnut, Scatter} from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
+import {authContext} from './AuthContext.js'
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -72,6 +73,8 @@ class RecentPlayed extends React.Component {
       }
     }
   }
+  static contextType = authContext;
+
   componentDidMount() {
     const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`
     const today = new Date();
@@ -80,7 +83,7 @@ class RecentPlayed extends React.Component {
       url: playedUrl,
       type: 'GET',
       beforeSend: (xhr) => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.props.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
       },
       success: (data) => {
         const tracks = [];

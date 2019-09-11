@@ -1,6 +1,7 @@
 import React from 'react';
 import * as $ from 'jquery';
 import Artist from './Artist.js'
+import {authContext} from './AuthContext.js'
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -17,6 +18,7 @@ class TopArtists extends React.Component {
       artists: [],
     };
   }
+  static contextType = authContext;
 
   componentDidMount() {
     const timeRange = this.props.timeFrame;
@@ -26,7 +28,7 @@ class TopArtists extends React.Component {
       url: artistsUrl,
       type: 'GET',
       beforeSend: (xhr) => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.props.token);
+        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
       },
       success: (data) => {
         const artists = [];
