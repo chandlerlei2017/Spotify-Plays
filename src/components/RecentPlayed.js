@@ -1,6 +1,8 @@
 import React from 'react';
 import * as $ from 'jquery';
 import Track from './Track.js'
+import {Doughnut, Scatter} from 'react-chartjs-2';
+import 'chartjs-plugin-colorschemes';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -12,15 +14,67 @@ const urlData = {
   limit: '50',
 };
 
+function getTimePoint(dateMax, dateMin, date){
+  // const mins = (parseISOString(dateMax) - parseISOString(dateMin))/60000;
+  return 6*(parseISOString(date) - dateMin)/(dateMax - dateMin);
+}
+
+function getTimeInterval(dateNow, dateMin) {
+  const min = (dateNow - parseISOString(dateMin))/60000
+  let timeInterval;
+  let timeUnit;
+  let earlyDate;
+
+  if (min <= 180) {
+    timeUnit = 'min';
+    timeInterval = Math.ceil(min/30)*5;
+    earlyDate = new Date(dateNow - 6*timeInterval*60*1000);
+  }
+  else if (min <= 4320) {
+    timeUnit = 'hour';
+    timeInterval = Math.ceil(min/360);
+    earlyDate = new Date(dateNow - 6*timeInterval*60*60*1000);
+  }
+  else if (min <= 34560) {
+    timeUnit = 'day';
+    timeInterval = Math.ceil(min/8640);
+    earlyDate = new Date(dateNow - 6*timeInterval*24*60*60*1000);
+  }
+  else if (min <= 120960) {
+    timeUnit = 'week'
+    timeInterval = Math.ceil(min/60480);
+    earlyDate = new Date(dateNow - 6*timeInterval*7*24*60*60*1000);
+  }
+  else {
+    timeUnit = 'month';
+    timeInterval = 1;
+    earlyDate = new Date(dateNow - 6*timeInterval*30.4*7*24*60*60*1000);
+  }
+
+  return {
+    timeInterval: timeInterval,
+    timeUnit: timeUnit,
+    earlyDate: earlyDate,
+  };
+}
+
 class RecentPlayed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trackList: []
+      trackList: [],
+      artistPlays: new Map(),
+      scatterData: [1],
+      timeData: {
+        timeUnit: null,
+        timeInterval: null,
+        earlyDate: null,
+      }
     }
   }
   componentDidMount() {
     const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`
+    const today = new Date();
 
     $.ajax({
       url: playedUrl,
@@ -30,11 +84,31 @@ class RecentPlayed extends React.Component {
       },
       success: (data) => {
         const tracks = [];
+        let artistPlays = new Map();
+        let scatterData = [];
+
+        const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
+
         for (let i = 0; i < data.items.length; i++) {
           let artists = {};
 
           for (let j = 0; j < data.items[i].track.artists.length; j++) {
-            artists[data.items[i].track.artists[j].name] = data.items[i].track.artists[j].external_urls.spotify;
+            const artistName = data.items[i].track.artists[j].name;
+            artists[artistName] = data.items[i].track.artists[j].external_urls.spotify;
+
+            if (artistPlays.has(artistName)) {
+              artistPlays.set(artistName,  artistPlays.get(artistName) + 1);
+            }
+            else {
+              artistPlays.set(artistName, 1);
+            }
+            console.log(getTimePoint(today, timeData.earlyDate, data.items[i].played_at));
+            scatterData.push(
+              {
+                x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
+                y: 1,
+              }
+            )
           }
 
           tracks.push({
@@ -51,6 +125,9 @@ class RecentPlayed extends React.Component {
 
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
+          artistPlays: artistPlays,
+          scatterData : scatterData,
+          timeData: timeData,
         }));
       }
     });
@@ -78,10 +155,109 @@ class RecentPlayed extends React.Component {
       )
     }
 
+    const pieChartData = {
+      labels: [...this.state.artistPlays.keys()],
+      datasets: [{
+        data: [...this.state.artistPlays.values()],
+      }],
+    }
+
+    const pieChartOptions = {
+      legend: {
+        display: false,
+      },
+      plugins: {
+        colorschemes: {
+            scheme: 'brewer.Paired12'
+        }
+      }
+    }
+
+    const scatterData = {
+      labels: ['Scatter'],
+      datasets: [
+        {
+          label: 'My First dataset',
+          fill: false,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 4,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          data: this.state.scatterData
+        }
+      ]
+    }
+
+    const scatterOptions = {
+      legend: {
+        display: false,
+      },
+      scales: {
+        xAxes: [{
+            ticks: {
+                min: Math.floor(this.state.scatterData[this.state.scatterData.length - 1].x),
+                max: 6,
+                stepSize: 1,
+                fontColor: '#b3b3b3',
+                callback: (value, index, values) => {
+                  if (value === 6) {
+                    return 'Now';
+                  }
+                  else {
+                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit} ago`;
+                  }
+                }
+            },
+            gridLines: {
+              borderDash: [8, 4],
+              drawBorder: false,
+              color: "#b3b3b3",
+            },
+        }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: 2,
+            stepSize: 1,
+            fontColor: '#b3b3b3',
+            callback: (value) => {
+              if (value === 1) {
+                return '';
+              }
+            }
+          },
+          gridLines: {
+            borderDash: [8, 4],
+            drawBorder: true,
+            color: "#b3b3b3",
+          },
+        }]
+      }
+    }
+
     return(
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
+          <div className='col-sm-8 offset-sm-2'>
+            <div className='p-3 mb-3 track rounded text-center'>
+              <h3 className='mb-5'>Artists in Recent Tracks</h3>
+              <Doughnut data={pieChartData} options={pieChartOptions}/>
+            </div>
+          </div>
+          <div className='col-sm-8 offset-sm-2'>
+            <div className='p-3 mb-3 track rounded text-center'>
+              <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
+              <Scatter data={scatterData} options={scatterOptions}/>
+            </div>
+          </div>
+
           <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
             <div className='col-sm-3 center'>
               <h4>Song</h4>
