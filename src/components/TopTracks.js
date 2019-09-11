@@ -61,7 +61,7 @@ class TopTracks extends React.Component {
 
     for (let i = 0; i < this.state.trackList.length; i++) {
       dispTracks.push(
-        <Track key={i} num={i + 1} track={ this.state.trackList[i] }></Track>
+        <Track key={ this.state.trackList[i].name } num={i + 1} track={ this.state.trackList[i] }></Track>
       )
     }
 

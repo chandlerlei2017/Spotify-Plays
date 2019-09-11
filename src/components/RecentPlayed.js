@@ -179,7 +179,7 @@ class RecentPlayed extends React.Component {
         dispDate = date.toLocaleDateString();
       }
       dispTracks.push(
-        <Track key={i} num={i + 1} track={this.state.trackList[i]} dispDate={dispDate}></Track>
+        <Track key={this.state.trackList[i].playedAt} num={i + 1} track={this.state.trackList[i]} dispDate={dispDate}></Track>
       )
     }
 
