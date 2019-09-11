@@ -135,8 +135,8 @@ class RecentPlayed extends React.Component {
           backgroundColor: 'rgba(75,192,192,0.4)',
           pointBorderColor: 'rgba(75,192,192,1)',
           pointBackgroundColor: '#fff',
-          pointBorderWidth: 2,
-          pointHoverRadius: 5,
+          pointBorderWidth: 4,
+          pointHoverRadius: 6,
           pointHoverBackgroundColor: 'rgba(75,192,192,1)',
           pointHoverBorderColor: 'rgba(220,220,220,1)',
           pointHoverBorderWidth: 2,
@@ -154,19 +154,40 @@ class RecentPlayed extends React.Component {
       scales: {
         xAxes: [{
             ticks: {
-                min: 0,
+                min: 1,
                 max: 6,
-            }
+                stepSize: 1,
+                fontColor: '#b3b3b3',
+                callback: (value, index, values) => {
+                  if (value === 6) {
+                    return 'Now';
+                  }
+                  return value;
+                }
+            },
+            gridLines: {
+              borderDash: [8, 4],
+              drawBorder: false,
+              color: "#b3b3b3",
+            },
         }],
         yAxes: [{
           ticks: {
             min: 0,
             max: 2,
             stepSize: 1,
-            callback: () => {
-              return null;
+            fontColor: '#b3b3b3',
+            callback: (value) => {
+              if (value === 1) {
+                return '';
+              }
             }
-          }
+          },
+          gridLines: {
+            borderDash: [8, 4],
+            drawBorder: false,
+            color: "#b3b3b3",
+          },
         }]
       }
     }
@@ -175,13 +196,15 @@ class RecentPlayed extends React.Component {
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
-          <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded'>
+          <div className='col-sm-8 offset-sm-2'>
+            <div className='p-3 mb-3 track rounded text-center'>
+              <h3 className='mb-5'>Artists in Recent Tracks</h3>
               <Doughnut data={pieChartData} options={pieChartOptions}/>
             </div>
           </div>
-          <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded'>
+          <div className='col-sm-8 offset-sm-2'>
+            <div className='p-3 mb-3 track rounded text-center'>
+              <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
               <Scatter data={scatterData} options={scatterOptions}/>
             </div>
           </div>
