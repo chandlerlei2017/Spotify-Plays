@@ -73,19 +73,19 @@ class App extends React.Component {
       return (
         <div className='p-3'>
           <authContext.Provider value={this.state.authToken}>
-            <RecentPlayed token={this.state.authToken}></RecentPlayed>
-            <TopTracks timeFrame='short_term' token={this.state.authToken}></ TopTracks>
-            <TopTracks timeFrame='medium_term' token={this.state.authToken}></ TopTracks>
-            <TopTracks timeFrame='long_term' token={this.state.authToken}></ TopTracks>
+            <RecentPlayed></RecentPlayed>
+            <TopTracks timeFrame='short_term'></ TopTracks>
+            <TopTracks timeFrame='medium_term'></ TopTracks>
+            <TopTracks timeFrame='long_term'></ TopTracks>
             <div className="row">
               <div className="col-sm-4">
-                <TopArtists timeFrame='short_term' token={this.state.authToken}></ TopArtists>
+                <TopArtists timeFrame='short_term'></ TopArtists>
               </div>
               <div className="col-sm-4">
-                <TopArtists timeFrame='medium_term' token={this.state.authToken}></ TopArtists>
+                <TopArtists timeFrame='medium_term'></ TopArtists>
               </div>
               <div className="col-sm-4">
-                <TopArtists timeFrame='long_term' token={this.state.authToken}></ TopArtists>
+                <TopArtists timeFrame='long_term'></ TopArtists>
               </div>
             </div>
           </authContext.Provider>
