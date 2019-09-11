@@ -66,7 +66,6 @@ class RecentPlayed extends React.Component {
       trackList: [],
       artistPlays: new Map(),
       scatterData: [1],
-      scatterDataTemp: [1],
       timeData: {
         timeUnit: null,
         timeInterval: null,
@@ -90,11 +89,10 @@ class RecentPlayed extends React.Component {
         const tracks = [];
         let artistPlays = new Map();
         let scatterData = [];
-        let scatterDataTemp = [];
 
         const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
 
-        scatterDataTemp.push(
+        scatterData.push(
           {
             x: 6,
             y: 50,
@@ -120,13 +118,6 @@ class RecentPlayed extends React.Component {
           scatterData.push(
             {
               x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
-              y: 1,
-            }
-          );
-
-          scatterDataTemp.push(
-            {
-              x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
               y: 50 - i,
             }
           );
@@ -143,9 +134,9 @@ class RecentPlayed extends React.Component {
           });
         }
 
-        scatterDataTemp.push(
+        scatterData.push(
           {
-            x: 0,
+            x: Math.floor(scatterData[scatterData.length - 1].x),
             y: 0,
           }
         );
@@ -153,8 +144,7 @@ class RecentPlayed extends React.Component {
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
           artistPlays: artistPlays,
-          scatterData: scatterData,
-          scatterDataTemp: scatterDataTemp, 
+          scatterData: scatterData, 
           timeData: timeData,
         }));
       }
@@ -206,27 +196,6 @@ class RecentPlayed extends React.Component {
       datasets: [
         {
           label: 'My First dataset',
-          fill: false,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          pointBorderColor: 'rgba(75,192,192,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 4,
-          pointHoverRadius: 6,
-          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: this.state.scatterData
-        }
-      ]
-    }
-
-    const scatterDataTemp = {
-      labels: ['Scatter'],
-      datasets: [
-        {
-          label: 'My First dataset',
           fill: true,
           backgroundColor: 'rgba(75,192,192,0.4)',
           pointBorderColor: 'rgba(75,192,192,1)',
@@ -239,7 +208,7 @@ class RecentPlayed extends React.Component {
           pointRadius: 1,
           pointHitRadius: 10,
           showLine: true,
-          data: this.state.scatterDataTemp
+          data: this.state.scatterData
         }
       ]
     }
@@ -251,54 +220,6 @@ class RecentPlayed extends React.Component {
       scales: {
         xAxes: [{
             ticks: {
-                min: Math.floor(this.state.scatterData[this.state.scatterData.length - 1].x),
-                max: 6,
-                stepSize: 1,
-                fontColor: '#b3b3b3',
-                callback: (value, index, values) => {
-                  if (value === 6) {
-                    return 'Now';
-                  }
-                  else {
-                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit}${this.state.timeData.timeInterval * (6 - value) === 1 ? '' : 's'}  ago`;
-                  }
-                }
-            },
-            gridLines: {
-              borderDash: [8, 4],
-              drawBorder: false,
-              color: "#b3b3b3",
-            },
-        }],
-        yAxes: [{
-          ticks: {
-            min: 0,
-            max: 2,
-            stepSize: 1,
-            fontColor: '#b3b3b3',
-            callback: (value) => {
-              if (value === 1) {
-                return '';
-              }
-            }
-          },
-          gridLines: {
-            borderDash: [8, 4],
-            drawBorder: true,
-            color: "#b3b3b3",
-          },
-        }]
-      }
-    }
-
-    const scatterOptionsTemp = {
-      legend: {
-        display: false,
-      },
-      scales: {
-        xAxes: [{
-            ticks: {
-                min: Math.floor(this.state.scatterData[this.state.scatterData.length - 1].x),
                 max: 6,
                 stepSize: 1,
                 fontColor: '#b3b3b3',
@@ -347,12 +268,6 @@ class RecentPlayed extends React.Component {
             <div className='p-3 mb-3 track rounded text-center'>
               <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
               <Scatter data={scatterData} options={scatterOptions}/>
-            </div>
-          </div>
-          <div className='col-sm-8 offset-sm-2'>
-            <div className='p-3 mb-3 track rounded text-center'>
-              <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
-              <Scatter data={scatterDataTemp} options={scatterOptionsTemp}/>
             </div>
           </div>
 
