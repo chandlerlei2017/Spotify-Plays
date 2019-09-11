@@ -147,3 +147,21 @@ h1 {
 .bg-orange {
   background-color: #e25822 !important;
 }
+
+.button-term {
+  background: #505050 !important;
+  border-color: #282828 !important;
+  color: #b3b3b3 !important;
+}
+
+.button-term-selected {
+  background: #505050 !important;
+  border-color: #282828 !important;
+  color: #b3b3b3 !important;
+}
+
+.button-term:hover, .button-term:focus, .button-term-selected { 
+  background: #282828 !important;
+  box-shadow: none !important;
+  color: #ffffff !important;
+}

@@ -6,6 +6,7 @@ import RecentPlayed from './components/RecentPlayed.js'
 import * as $ from 'jquery';
 import Background from './assets/headphones2.jpg'
 import {authContext} from './components/AuthContext.js'
+import ButtonGroup from './components/ButtonGroup.js'
 
 const testUrl = 'https://api.spotify.com/v1/me'
 
@@ -25,7 +26,9 @@ class App extends React.Component {
     this.state = {
       authToken: '',
       loaded: false,
+      term: 'short_term',
     };
+    this.termOnClick = this.termOnClick.bind(this);
   }
 
   async componentDidMount() {
@@ -55,6 +58,13 @@ class App extends React.Component {
     });
   }
 
+  termOnClick(e) {
+    console.log(e.target.id);
+    this.setState({
+      term: e.target.id,
+    });
+  }
+
   render() {
     if (this.state.loaded === false) {
       return (null);
@@ -68,15 +78,19 @@ class App extends React.Component {
           </header>
         </div>
       );
-    }
+    } 
     else {
       return (
         <div className='p-3'>
           <authContext.Provider value={this.state.authToken}>
             <RecentPlayed></RecentPlayed>
-            <TopTracks timeFrame='short_term'></ TopTracks>
-            <TopTracks timeFrame='medium_term'></ TopTracks>
-            <TopTracks timeFrame='long_term'></ TopTracks>
+            <h2 className="mb-5">Top Tracks: </h2>
+            
+            <ButtonGroup selected={this.state.term} onClick={e => this.termOnClick(e)}></ButtonGroup>
+
+            <TopTracks timeFrame='short_term' display={this.state.term}></ TopTracks>
+            <TopTracks timeFrame='medium_term' display={this.state.term}></ TopTracks>
+            <TopTracks timeFrame='long_term' display={this.state.term}></ TopTracks>
             <div className="row">
               <div className="col-sm-4">
                 <TopArtists timeFrame='short_term'></ TopArtists>
