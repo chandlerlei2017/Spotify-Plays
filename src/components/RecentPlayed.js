@@ -210,7 +210,7 @@ class RecentPlayed extends React.Component {
                     return 'Now';
                   }
                   else {
-                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit} ago`;
+                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit}${this.state.timeData.timeInterval * (6 - value) === 1 ? '' : 's'}  ago`;
                   }
                 }
             },
