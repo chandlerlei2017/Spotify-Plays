@@ -16,7 +16,46 @@ const urlData = {
 
 function getTimePoint(dateMax, dateMin, date){
   // const mins = (parseISOString(dateMax) - parseISOString(dateMin))/60000;
-  return 6*(parseISOString(date) - parseISOString(dateMin))/(dateMax - parseISOString(dateMin));
+  return 6*(parseISOString(date) - dateMin)/(dateMax - dateMin);
+}
+
+function getTimeInterval(dateNow, dateMin) {
+  const min = (dateNow - parseISOString(dateMin))/60000
+  let timeInterval;
+  let timeUnit;
+  let earlyDate;
+
+  if (min <= 180) {
+    timeUnit = 'min';
+    timeInterval = Math.ceil(min/30)*5;
+    earlyDate = new Date(dateNow - 6*timeInterval*60*1000);
+  }
+  else if (min <= 4320) {
+    timeUnit = 'hour';
+    timeInterval = Math.ceil(min/360);
+    earlyDate = new Date(dateNow - 6*timeInterval*60*60*1000);
+  }
+  else if (min <= 34560) {
+    timeUnit = 'day';
+    timeInterval = Math.ceil(min/8640);
+    earlyDate = new Date(dateNow - 6*timeInterval*24*60*60*1000);
+  }
+  else if (min <= 120960) {
+    timeUnit = 'week'
+    timeInterval = Math.ceil(min/60480);
+    earlyDate = new Date(dateNow - 6*timeInterval*7*24*60*60*1000);
+  }
+  else {
+    timeUnit = 'month';
+    timeInterval = 1;
+    earlyDate = new Date(dateNow - 6*timeInterval*30.4*7*24*60*60*1000);
+  }
+
+  return {
+    timeInterval: timeInterval,
+    timeUnit: timeUnit,
+    earlyDate: earlyDate,
+  };
 }
 
 class RecentPlayed extends React.Component {
@@ -25,7 +64,12 @@ class RecentPlayed extends React.Component {
     this.state = {
       trackList: [],
       artistPlays: new Map(),
-      scatterData: [],
+      scatterData: [1],
+      timeData: {
+        timeUnit: null,
+        timeInterval: null,
+        earlyDate: null,
+      }
     }
   }
   componentDidMount() {
@@ -43,6 +87,8 @@ class RecentPlayed extends React.Component {
         let artistPlays = new Map();
         let scatterData = [];
 
+        const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
+
         for (let i = 0; i < data.items.length; i++) {
           let artists = {};
 
@@ -56,10 +102,10 @@ class RecentPlayed extends React.Component {
             else {
               artistPlays.set(artistName, 1);
             }
-            console.log(getTimePoint(today, data.items[data.items.length - 1].played_at, data.items[i].played_at));
+            console.log(getTimePoint(today, timeData.earlyDate, data.items[i].played_at));
             scatterData.push(
               {
-                x: getTimePoint(today, data.items[data.items.length - 1].played_at, data.items[i].played_at),
+                x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
                 y: 1,
               }
             )
@@ -81,6 +127,7 @@ class RecentPlayed extends React.Component {
           trackList: [...prevState.trackList, ...tracks],
           artistPlays: artistPlays,
           scatterData : scatterData,
+          timeData: timeData,
         }));
       }
     });
@@ -154,7 +201,7 @@ class RecentPlayed extends React.Component {
       scales: {
         xAxes: [{
             ticks: {
-                min: 1,
+                min: Math.floor(this.state.scatterData[this.state.scatterData.length - 1].x),
                 max: 6,
                 stepSize: 1,
                 fontColor: '#b3b3b3',
@@ -162,7 +209,9 @@ class RecentPlayed extends React.Component {
                   if (value === 6) {
                     return 'Now';
                   }
-                  return value;
+                  else {
+                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit} ago`;
+                  }
                 }
             },
             gridLines: {
@@ -185,7 +234,7 @@ class RecentPlayed extends React.Component {
           },
           gridLines: {
             borderDash: [8, 4],
-            drawBorder: false,
+            drawBorder: true,
             color: "#b3b3b3",
           },
         }]
