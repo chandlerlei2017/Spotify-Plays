@@ -4,6 +4,7 @@ import Track from './Track.js'
 import {Doughnut, Scatter} from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
 import {authContext} from './AuthContext.js'
+import { now } from 'moment';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -144,7 +145,7 @@ class RecentPlayed extends React.Component {
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
           artistPlays: artistPlays,
-          scatterData: scatterData, 
+          scatterData: scatterData,
           timeData: timeData,
         }));
       }
@@ -197,16 +198,17 @@ class RecentPlayed extends React.Component {
         {
           label: 'My First dataset',
           fill: true,
-          backgroundColor: 'rgba(75,192,192,0.4)',
+          backgroundColor: 'rgba(75,192,192,0.2)',
           pointBorderColor: 'rgba(75,192,192,1)',
           pointBackgroundColor: '#fff',
-          pointBorderWidth: 4,
-          pointHoverRadius: 6,
+          pointBorderWidth: 3,
+          pointHoverRadius: 5,
           pointHoverBackgroundColor: 'rgba(75,192,192,1)',
           pointHoverBorderColor: 'rgba(220,220,220,1)',
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
+          borderWidth: 1,
           showLine: true,
           data: this.state.scatterData
         }
@@ -219,6 +221,11 @@ class RecentPlayed extends React.Component {
       },
       scales: {
         xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Time',
+              fontColor: '#b3b3b3',
+            },
             ticks: {
                 max: 6,
                 stepSize: 1,
@@ -239,6 +246,11 @@ class RecentPlayed extends React.Component {
             },
         }],
         yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Tracks Played',
+            fontColor: '#b3b3b3',
+          },
           ticks: {
             min: 0,
             max: 50,
@@ -251,20 +263,42 @@ class RecentPlayed extends React.Component {
             color: "#b3b3b3",
           },
         }]
-      }
+      },
+      tooltips: {
+        displayColors: false,
+        callbacks: {
+          title: (tooltipItem, data) => {
+            if (tooltipItem[0].index >= 1 && tooltipItem[0].index <= this.state.trackList.length) {
+              return this.state.trackList[tooltipItem[0].index - 1].name;
+            }
+            else if (tooltipItem[0].index === 0) {
+              return 'End';
+            }
+            else {
+              return 'Start';
+            }
+          },
+          label: (tooltipItem, data) => {
+            if (tooltipItem.index >= 1 && tooltipItem.index <= this.state.trackList.length) {
+              const date = parseISOString(this.state.trackList[tooltipItem.index - 1].playedAt);
+              return `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
+            }
+          },
+        },
+      },
     }
 
     return(
       <div className = 'mt-5'>
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
-          <div className='col-sm-8 offset-sm-2'>
+          <div className='col-sm-6'>
             <div className='p-3 mb-3 track rounded text-center'>
               <h3 className='mb-5'>Artists in Recent Tracks</h3>
               <Doughnut data={pieChartData} options={pieChartOptions}/>
             </div>
           </div>
-          <div className='col-sm-8 offset-sm-2'>
+          <div className='col-sm-6'>
             <div className='p-3 mb-3 track rounded text-center'>
               <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
               <Scatter data={scatterData} options={scatterOptions}/>

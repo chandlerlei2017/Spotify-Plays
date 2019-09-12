@@ -67,7 +67,7 @@ class TopTracks extends React.Component {
     const display = this.props.timeFrame === this.props.display ? 'block' : 'none';
 
     return(
-      <div className = 'mt-5' style={{display: display}}>
+      <div className = 'mt-5 display-transition' style={{display: display}}>
         <div className='row'>
           <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
             <div className='col-sm-3 center'>
