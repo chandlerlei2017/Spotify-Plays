@@ -2,6 +2,7 @@ import React from 'react';
 import * as $ from 'jquery';
 import Track from './Track.js'
 import {authContext} from './AuthContext.js'
+import {Doughnut, Scatter} from 'react-chartjs-2';
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -15,6 +16,7 @@ class TopTracks extends React.Component {
 
     this.state = {
       trackList: [],
+      artistPlays: new Map(),
     }
   }
   static contextType = authContext;
@@ -31,11 +33,21 @@ class TopTracks extends React.Component {
       },
       success: (data) => {
         const tracks = [];
+        let artistPlays = new Map();
+        
         for (let i = 0; i < data.items.length; i++) {
           const artists = {};
 
           for (let j = 0; j < data.items[i].artists.length; j++) {
+            const artistName = data.items[i].artists[j].name;
             artists[data.items[i].artists[j].name] = data.items[i].artists[j].external_urls.spotify;
+
+            if (artistPlays.has(artistName)) {
+              artistPlays.set(artistName,  artistPlays.get(artistName) + 1);
+            }
+            else {
+              artistPlays.set(artistName, 1);
+            }
           }
 
           tracks.push({
@@ -51,6 +63,7 @@ class TopTracks extends React.Component {
 
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
+          artistPlays: artistPlays,
         }));
       }
     });
@@ -64,11 +77,57 @@ class TopTracks extends React.Component {
         <Track key={ this.state.trackList[i].name } num={i + 1} track={ this.state.trackList[i] }></Track>
       )
     }
-    const display = this.props.timeFrame === this.props.display ? 'block' : 'none';
+
+    let style;
+
+    if (this.props.timeFrame === this.props.display) {
+      style = {
+        visibility: 'visible',
+        height: 'inherit',
+        opacity: '1',
+      }
+    }
+    else{
+      style = {
+        visibility: 'hidden',
+        height: '0',
+        opacity: '0',
+      }
+    }
+
+    const pieChartData = {
+      labels: [...this.state.artistPlays.keys()],
+      datasets: [{
+        data: [...this.state.artistPlays.values()],
+      }],
+    }
+
+    const pieChartOptions = {
+      legend: {
+        display: false,
+      },
+      plugins: {
+        colorschemes: {
+            scheme: 'brewer.Paired12'
+        }
+      }
+    }
 
     return(
-      <div className = 'mt-5 display-transition' style={{display: display}}>
+      <div className = 'display-transition' style={style}>
         <div className='row'>
+        <div className='col-sm-6'>
+            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
+              <h3 className='mb-5'>Artists in Tracks</h3>
+              <Doughnut data={pieChartData} options={pieChartOptions}/>
+            </div>
+          </div>
+          <div className='col-sm-6'>
+            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
+              <h3 className='mb-5'>Track Number by Popularity</h3>
+              
+            </div>
+          </div>
           <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
             <div className='col-sm-3 center'>
               <h4>Song</h4>
@@ -81,7 +140,7 @@ class TopTracks extends React.Component {
             </div>
             <div className='col-sm-3 center row'>
               <div className='col-sm-12'>
-                <h4>Popularity</h4>
+                <h4>Track Popularity</h4>
               </div>
             </div>
           </div>

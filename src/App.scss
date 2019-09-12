@@ -165,3 +165,8 @@ h1 {
   box-shadow: none !important;
   color: #ffffff !important;
 }
+
+.display-transition {
+  -webkit-transition: opacity 500ms ease-in !important;
+  transition: opacity 500ms ease-in !important;
+}

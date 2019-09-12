@@ -113,7 +113,6 @@ class RecentPlayed extends React.Component {
               artistPlays.set(artistName, 1);
             }
           }
-          console.log(getTimePoint(today, timeData.earlyDate, data.items[i].played_at));
 
           scatterData.push(
             {
@@ -316,7 +315,7 @@ class RecentPlayed extends React.Component {
             </div>
             <div className='col-sm-4 center row'>
               <div className='col-sm-8 center'>
-                <h4>Popularity</h4>
+                <h4>Track Popularity</h4>
               </div>
               <div className='col-sm-4 center'>
                 <h4>Played</h4>
