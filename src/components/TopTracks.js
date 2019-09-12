@@ -137,7 +137,7 @@ class TopTracks extends React.Component {
       },
       plugins: {
         colorschemes: {
-            scheme: 'brewer.Paired12'
+            scheme: 'tableau.RedGold21'
         }
       }
     }

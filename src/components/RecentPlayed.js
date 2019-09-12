@@ -186,7 +186,7 @@ class RecentPlayed extends React.Component {
       },
       plugins: {
         colorschemes: {
-            scheme: 'brewer.Paired12'
+            scheme: 'brewer.YlGn9'
         }
       }
     }
