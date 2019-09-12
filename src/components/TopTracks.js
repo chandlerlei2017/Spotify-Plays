@@ -146,7 +146,7 @@ class TopTracks extends React.Component {
       labels: popLabels,
       datasets: [
         {
-          label: 'My First dataset',
+          label: 'Tracks',
           backgroundColor: 'rgba(255,99,132,0.4)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
@@ -200,13 +200,13 @@ class TopTracks extends React.Component {
       <div className = {className} style={style}>
         <div className='row'>
         <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
+            <div className='p-3 mb-5 track rounded text-center transition-3d-hover'>
               <h3 className='mb-5'>Artists in Tracks</h3>
               <Doughnut data={pieChartData} options={pieChartOptions}/>
             </div>
           </div>
           <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
+            <div className='p-3 mb-5 track rounded text-center transition-3d-hover'>
               <h3 className='mb-5'>Number of Tracks by Popularity</h3>
               <Bar data={barData} options={barOptions}></Bar>
             </div>

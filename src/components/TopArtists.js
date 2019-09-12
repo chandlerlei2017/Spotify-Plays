@@ -2,6 +2,8 @@ import React from 'react';
 import * as $ from 'jquery';
 import Artist from './Artist.js'
 import {authContext} from './AuthContext.js'
+import Header from './Header.js'
+
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -61,7 +63,7 @@ class TopArtists extends React.Component {
 
     return(
       <React.Fragment>
-        <h2 className="mt-5 mb-5">Top Artists ({mapping[this.props.timeFrame]}): </h2>
+        <Header title={`Top Artists (${mapping[this.props.timeFrame]})`}></Header>
         <div className='row'>
           {artistList}
         </div>

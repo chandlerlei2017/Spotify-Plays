@@ -7,6 +7,7 @@ import * as $ from 'jquery';
 import Background from './assets/headphones2.jpg'
 import {authContext} from './components/AuthContext.js'
 import ButtonGroup from './components/ButtonGroup.js'
+import Header from './components/Header.js'
 
 const testUrl = 'https://api.spotify.com/v1/me'
 
@@ -65,6 +66,16 @@ class App extends React.Component {
     });
   }
 
+  humanizeTerm() {
+    const terms = {
+      'short_term': 'Short Term',
+      'medium_term': 'Medium Term',
+      'long_term': 'Long Term', 
+    }
+
+    return terms[this.state.term];
+  }
+
   render() {
     if (this.state.loaded === false) {
       return (null);
@@ -84,7 +95,7 @@ class App extends React.Component {
         <div className='p-3'>
           <authContext.Provider value={this.state.authToken}>
             <RecentPlayed></RecentPlayed>
-            <h2 className="mb-5">Top Tracks: </h2>
+            <Header title={`Top Tracks (${this.humanizeTerm()})`}></Header>
             
             <ButtonGroup selected={this.state.term} onClick={e => this.termOnClick(e)}></ButtonGroup>
 
