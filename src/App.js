@@ -95,30 +95,19 @@ class App extends React.Component {
 
       return (
         <React.Fragment>
-          <div className="pos-f-t sticky">
-            <div className="collapse" id="navbarToggleExternalContent">
-              <div className="bg-navbar p-4 row">
-                <div className='col-sm-3'>
-                  <Header title={'Spotify-Plays'} margin={false} color='text-green'>
-                    A web app that provides data for Spotify playing history
-                  </Header>
-                </div>
-                <div className='col-sm-3 center text-center'>
-                  <a className='btn btn-primary login-button pl-5 pr-5' href='#recentPlayed'>Recently Played</a>
-                </div>
-                <div className='col-sm-3 center text-center'>
-                  <a className='btn btn-primary login-button pl-5 pr-5' href='#topTracks'>Top Tracks</a>
-                </div>
-                <div className='col-sm-3 center text-center'>
-                  <a className='btn btn-primary login-button pl-5 pr-5' href='#topArtists'>Top Artists</a>
-                </div>
+          <div className="header">
+            <div className="row text-right m-0">
+              <div className="col-sm-6 text-left center">
+                <Header title={"Spotify-Plays"} color='text-green' margin={false}></Header>
               </div>
+              <div className="col-sm-6 text-right">
+                <a href='#recentPlayed' className="header-link">Recently Played</a>
+                <a href='#topTracks' className="header-link ml-4">Top Tracks</a>
+                <a href='#topArtists' className="header-link ml-4">Top Artists</a>
+              </div>
+
+              <hr />
             </div>
-            <nav className="navbar navbar-dark rounded nav-dark">
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-            </nav>
           </div>
           <div className='p-3 mt-5'>
             <authContext.Provider value={this.state.authToken}>
