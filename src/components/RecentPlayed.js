@@ -4,7 +4,6 @@ import Track from './Track.js'
 import {Doughnut, Scatter} from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
 import {authContext} from './AuthContext.js'
-import { now } from 'moment';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -293,13 +292,13 @@ class RecentPlayed extends React.Component {
         <h2 className="mb-5">Recently Played Tracks: </h2>
         <div className='row'>
           <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded text-center'>
+            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
               <h3 className='mb-5'>Artists in Recent Tracks</h3>
               <Doughnut data={pieChartData} options={pieChartOptions}/>
             </div>
           </div>
           <div className='col-sm-6'>
-            <div className='p-3 mb-3 track rounded text-center'>
+            <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
               <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
               <Scatter data={scatterData} options={scatterOptions}/>
             </div>
