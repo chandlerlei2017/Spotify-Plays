@@ -68,9 +68,9 @@ class App extends React.Component {
 
   humanizeTerm() {
     const terms = {
-      'short_term': 'Short Term',
-      'medium_term': 'Medium Term',
-      'long_term': 'Long Term', 
+      'short_term': ['Short Term', 'last 4 weeks'],
+      'medium_term': ['Medium Term', 'last 6 months'],
+      'long_term': ['Long Term', 'last several years'],
     }
 
     return terms[this.state.term];
@@ -91,30 +91,61 @@ class App extends React.Component {
       );
     } 
     else {
-      return (
-        <div className='p-3'>
-          <authContext.Provider value={this.state.authToken}>
-            <RecentPlayed></RecentPlayed>
-            <Header title={`Top Tracks (${this.humanizeTerm()})`}></Header>
-            
-            <ButtonGroup selected={this.state.term} onClick={e => this.termOnClick(e)}></ButtonGroup>
+      const terms = this.humanizeTerm();
 
-            <TopTracks timeFrame='short_term' display={this.state.term}></ TopTracks>
-            <TopTracks timeFrame='medium_term' display={this.state.term}></ TopTracks>
-            <TopTracks timeFrame='long_term' display={this.state.term}></ TopTracks>
-            <div className="row">
-              <div className="col-sm-4">
-                <TopArtists timeFrame='short_term'></ TopArtists>
-              </div>
-              <div className="col-sm-4">
-                <TopArtists timeFrame='medium_term'></ TopArtists>
-              </div>
-              <div className="col-sm-4">
-                <TopArtists timeFrame='long_term'></ TopArtists>
+      return (
+        <React.Fragment>
+          <div className="pos-f-t sticky">
+            <div className="collapse" id="navbarToggleExternalContent">
+              <div className="bg-navbar p-4 row">
+                <div className='col-sm-3'>
+                  <Header title={'Spotify-Plays'} margin={false} color='text-green'>
+                    A web app that provides data for Spotify playing history
+                  </Header>
+                </div>
+                <div className='col-sm-3 center text-center'>
+                  <a className='btn btn-primary login-button pl-5 pr-5' href='#recentPlayed'>Recently Played</a>
+                </div>
+                <div className='col-sm-3 center text-center'>
+                  <a className='btn btn-primary login-button pl-5 pr-5' href='#topTracks'>Top Tracks</a>
+                </div>
+                <div className='col-sm-3 center text-center'>
+                  <a className='btn btn-primary login-button pl-5 pr-5' href='#topArtists'>Top Artists</a>
+                </div>
               </div>
             </div>
-          </authContext.Provider>
-        </div>
+            <nav className="navbar navbar-dark rounded nav-dark">
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            </nav>
+          </div>
+          <div className='p-3 mt-5'>
+            <authContext.Provider value={this.state.authToken}>
+              <RecentPlayed></RecentPlayed>
+              <Header title={`Top Tracks (${terms[0]})`} id='topTracks'>
+                {`${terms[0]} represents playing history from the ${terms[1]}`}
+              </Header>
+              
+              <ButtonGroup selected={this.state.term} onClick={e => this.termOnClick(e)}></ButtonGroup>
+
+              <TopTracks timeFrame='short_term' display={this.state.term}></ TopTracks>
+              <TopTracks timeFrame='medium_term' display={this.state.term}></ TopTracks>
+              <TopTracks timeFrame='long_term' display={this.state.term}></ TopTracks>
+              <div className="row" id='topArtists'>
+                <div className="col-sm-4">
+                  <TopArtists timeFrame='short_term'></ TopArtists>
+                </div>
+                <div className="col-sm-4">
+                  <TopArtists timeFrame='medium_term'></ TopArtists>
+                </div>
+                <div className="col-sm-4">
+                  <TopArtists timeFrame='long_term'></ TopArtists>
+                </div>
+              </div>
+            </authContext.Provider>
+          </div>
+        </React.Fragment>
       );
     }
   }

@@ -170,3 +170,26 @@ h1 {
   -webkit-transition: opacity 500ms ease !important;
   transition: opacity 500ms ease !important;
 }
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.text-grey {
+  color: #b3b3b3;
+}
+
+.text-green {
+  color: #1ed760 !important;
+}
+
+.bg-navbar {
+  background: #505050;
+}
+
+.nav-dark {
+  background-color: #282828 !important;
+}

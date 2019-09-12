@@ -289,7 +289,9 @@ class RecentPlayed extends React.Component {
 
     return(
       <div className = 'mt-5'>
-        <Header title={`Recently Played Tracks (Last ${this.state.trackList.length})`}></Header>
+        <Header title={`Recently Played Tracks (Last ${this.state.trackList.length})`} id='recentPlayed'>
+          The most recent tracks you played, up to 50
+        </Header>
         <div className='row'>
           <div className='col-sm-6 mb-5'>
             <div className='p-3 track rounded text-center transition-3d-hover'>

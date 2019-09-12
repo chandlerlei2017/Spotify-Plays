@@ -56,14 +56,16 @@ class TopArtists extends React.Component {
     });
 
     const mapping = {
-      'short_term': 'Short Term',
-      'medium_term': 'Medium Term',
-      'long_term': 'Long Term',
+      'short_term': ['Short Term', 'last 4 weeks'],
+      'medium_term': ['Medium Term', 'last 6 months'],
+      'long_term': ['Long Term', 'last several years'],
     }
 
     return(
       <React.Fragment>
-        <Header title={`Top Artists (${mapping[this.props.timeFrame]})`}></Header>
+        <Header title={`Top Artists (${mapping[this.props.timeFrame][0]})`}>
+          {`${mapping[this.props.timeFrame][0]} represents playing history from the ${mapping[this.props.timeFrame][1]}`}
+        </Header>
         <div className='row'>
           {artistList}
         </div>

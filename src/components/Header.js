@@ -2,7 +2,10 @@ import React from 'react';
 
 function Header(props) {
   return (
-    <h2 className="mb-5 mt-5">{props.title}</h2>
+    <div className={props.margin === false ? '' : 'mt-5 mb-5'}>
+      <h2 className={props.color} id={props.id}>{props.title}</h2>
+      <span className='text-grey'>{props.children}</span>
+    </div>
   );
 }
 
