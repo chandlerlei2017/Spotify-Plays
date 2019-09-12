@@ -79,6 +79,7 @@ class TopTracks extends React.Component {
     }
 
     let style;
+    let className = '';
 
     if (this.props.timeFrame === this.props.display) {
       style = {
@@ -86,13 +87,14 @@ class TopTracks extends React.Component {
         height: 'inherit',
         opacity: '1',
       }
+      className = 'display-transition';
     }
     else{
       style = {
         visibility: 'hidden',
         height: '0',
         opacity: '0',
-      }
+      };
     }
 
     const pieChartData = {
@@ -114,7 +116,7 @@ class TopTracks extends React.Component {
     }
 
     return(
-      <div className = 'display-transition' style={style}>
+      <div className = {className} style={style}>
         <div className='row'>
         <div className='col-sm-6'>
             <div className='p-3 mb-3 track rounded text-center transition-3d-hover'>
