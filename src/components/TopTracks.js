@@ -39,7 +39,7 @@ class TopTracks extends React.Component {
         const tracks = [];
         let artistPlays = new Map();
         let popularityArr = Array(10).fill(0);
-        
+
         for (let i = 0; i < data.items.length; i++) {
           const artists = {};
 
@@ -111,7 +111,7 @@ class TopTracks extends React.Component {
     if (this.props.timeFrame === this.props.display) {
       style = {
         visibility: 'visible',
-        height: 'inherit',
+        height: '100%',
         opacity: '1',
       }
       className = 'display-transition';
