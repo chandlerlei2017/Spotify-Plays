@@ -17,7 +17,6 @@ const urlData = {
 };
 
 function getTimePoint(dateMax, dateMin, date){
-  // const mins = (parseISOString(dateMax) - parseISOString(dateMin))/60000;
   return 6*(parseISOString(date) - dateMin)/(dateMax - dateMin);
 }
 
