@@ -63,7 +63,7 @@ class TopArtists extends React.Component {
 
     return(
       <React.Fragment>
-        <Header title={`Top Artists (${mapping[this.props.timeFrame][0]})`}>
+        <Header title={`Top Artists (${mapping[this.props.timeFrame][0]})`} id='topArtists'>
           {`${mapping[this.props.timeFrame][0]} represents playing history from the ${mapping[this.props.timeFrame][1]}`}
         </Header>
         <div className='row'>

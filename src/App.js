@@ -89,7 +89,7 @@ class App extends React.Component {
           </header>
         </div>
       );
-    } 
+    }
     else {
       const terms = this.humanizeTerm();
 
@@ -97,10 +97,10 @@ class App extends React.Component {
         <React.Fragment>
           <div className="header">
             <div className="row text-right m-0">
-              <div className="col-sm-6 text-left center">
-                <Header title={"Spotify-Plays"} color='text-green' margin={false}></Header>
+              <div className="col-sm-4 text-left center">
+                <h2 className='text-green mb-0'>Spotify-Plays</h2>
               </div>
-              <div className="col-sm-6 text-right">
+              <div className="col-sm-8 text-right">
                 <a href='#recentPlayed' className="header-link">Recently Played</a>
                 <a href='#topTracks' className="header-link ml-4">Top Tracks</a>
                 <a href='#topArtists' className="header-link ml-4">Top Artists</a>
@@ -115,13 +115,13 @@ class App extends React.Component {
               <Header title={`Top Tracks (${terms[0]})`} id='topTracks'>
                 {`${terms[0]} represents playing history from the ${terms[1]}`}
               </Header>
-              
+
               <ButtonGroup selected={this.state.term} onClick={e => this.termOnClick(e)}></ButtonGroup>
 
               <TopTracks timeFrame='short_term' display={this.state.term}></ TopTracks>
               <TopTracks timeFrame='medium_term' display={this.state.term}></ TopTracks>
               <TopTracks timeFrame='long_term' display={this.state.term}></ TopTracks>
-              <div className="row" id='topArtists'>
+              <div className="row">
                 <div className="col-sm-4">
                   <TopArtists timeFrame='short_term'></ TopArtists>
                 </div>
