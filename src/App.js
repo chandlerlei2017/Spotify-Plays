@@ -98,8 +98,9 @@ class App extends React.Component {
         <React.Fragment>
           <div className="header">
             <div className="row text-right m-0">
-              <div className="col-sm-4 text-left center">
-                <h2 className='text-green mb-0'>Spotify-Tracks</h2>
+              <div className="col-sm-4 text-left center row">
+                <img className='logo ml-3 mr-3 mt-1' src='./logo.png' alt='logo'></img>
+                <h2 className='text-green mb-0 center'>Spotify-Tracks</h2>
               </div>
               <div className="col-sm-8 text-right">
                 <AnchorLink href='#recentPlayed' offset='60' className="header-link">Recently Played</AnchorLink>
