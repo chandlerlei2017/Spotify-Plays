@@ -8,6 +8,7 @@ import Background from './assets/headphones2.jpg'
 import {authContext} from './components/AuthContext.js'
 import ButtonGroup from './components/ButtonGroup.js'
 import Header from './components/Header.js'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 const testUrl = 'https://api.spotify.com/v1/me'
 
@@ -101,9 +102,9 @@ class App extends React.Component {
                 <h2 className='text-green mb-0'>Spotify-Plays</h2>
               </div>
               <div className="col-sm-8 text-right">
-                <a href='#recentPlayed' className="header-link">Recently Played</a>
-                <a href='#topTracks' className="header-link ml-4">Top Tracks</a>
-                <a href='#topArtists' className="header-link ml-4">Top Artists</a>
+                <AnchorLink href='#recentPlayed' offset='60' className="header-link">Recently Played</AnchorLink>
+                <AnchorLink href='#topTracks' offset='60' className="header-link ml-4">Top Tracks</AnchorLink>
+                <AnchorLink href='#topArtists' offset='60' className="header-link ml-4">Top Artists</AnchorLink>
               </div>
 
               <hr />
