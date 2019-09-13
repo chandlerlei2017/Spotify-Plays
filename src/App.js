@@ -85,7 +85,7 @@ class App extends React.Component {
       return (
         <div className='App'>
           <header className='App-header' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${Background})`}}>
-              <h1 className='mb-5 title'>Spotify-Plays</h1>
+              <h1 className='mb-5 title'>Spotify-Tracks</h1>
               <a className='btn btn-primary login-button pl-5 pr-5' href={authUrl}>LOGIN</a>
           </header>
         </div>
@@ -99,7 +99,7 @@ class App extends React.Component {
           <div className="header">
             <div className="row text-right m-0">
               <div className="col-sm-4 text-left center">
-                <h2 className='text-green mb-0'>Spotify-Plays</h2>
+                <h2 className='text-green mb-0'>Spotify-Tracks</h2>
               </div>
               <div className="col-sm-8 text-right">
                 <AnchorLink href='#recentPlayed' offset='60' className="header-link">Recently Played</AnchorLink>
