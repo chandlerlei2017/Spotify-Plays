@@ -16,6 +16,8 @@ const urlData = {
   limit: '50',
 };
 
+const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 function getTimePoint(dateMax, dateMin, date){
   return 6*(parseISOString(date) - dateMin)/(dateMax - dateMin);
 }
@@ -164,11 +166,14 @@ class RecentPlayed extends React.Component {
       else if ((today-date)/3600000 < 24) {
         dispDate = 'Yesterday - ' + date.toLocaleTimeString();
       }
+      else if ((today-date)/3600000 < 168) {
+        dispDate = weekDay[date.getDay()] + ' - ' + date.toLocaleTimeString();
+      }
       else {
         dispDate = date.toLocaleDateString();
       }
       dispTracks.push(
-        <Track key={this.state.trackList[i].playedAt} num={i + 1} track={this.state.trackList[i]} dispDate={dispDate}></Track>
+        <Track key={this.state.trackList[i].playedAt} track={this.state.trackList[i]} dispDate={dispDate}></Track>
       )
     }
 

@@ -27,7 +27,7 @@ function Track(props) {
   return(
     <div className='row track rounded p-3 ml-3 mb-3 mr-3 transition-3d-hover'>
       <div className='col-sm-3 center'>
-        <a href={props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{props.num + ': ' + props.track.name}</a>
+        <a href={props.track.play} target='_blank' className='s-link' rel='noopener noreferrer'>{(props.num ? (props.num + ': ') : '') + props.track.name}</a>
       </div>
       <div className='col-sm-3 center'>
         <a href={props.track.albumLink} target='_blank' rel='noopener noreferrer' className='s-link row'>
