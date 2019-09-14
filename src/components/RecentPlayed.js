@@ -166,7 +166,7 @@ class RecentPlayed extends React.Component {
       else if ((today-date)/3600000 < 24) {
         dispDate = 'Yesterday - ' + date.toLocaleTimeString();
       }
-      else if ((today-date)/3600000 < 168) {
+      else if ((today-date)/3600000 < 96) {
         dispDate = weekDay[date.getDay()] + ' - ' + date.toLocaleTimeString();
       }
       else {
