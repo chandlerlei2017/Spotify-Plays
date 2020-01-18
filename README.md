@@ -3,7 +3,7 @@
 ReactJS app that displays user streaming history for spotify.
 
 ## Productuction:
-Visit: https://spotifytracks.com
+Visit: https://spothistory.netlify.com/
 
 ## Development:
 1. Fork the Repo
