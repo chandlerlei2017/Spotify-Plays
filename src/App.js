@@ -2,11 +2,8 @@ import React from 'react';
 import './App.scss';
 import Login from './components/Login';
 import Content from './components/Content/index';
-import * as $ from 'jquery';
-import { setAuth } from './Client';
+import { setAuth, initAxios } from './Client';
 import axios from 'axios';
-
-const testUrl = 'https://api.spotify.com/v1/me';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,12 +17,14 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
+    initAxios();
+
     const token = window.location.hash.split('&')[0].split('=')[1];
 
     if (token) {
       setAuth(token);
 
-      await axios.get(testUrl).then(() => {
+      await axios.get().then(() => {
         this.setState({ authToken: token });
       });
     }

@@ -1,15 +1,9 @@
 import React from 'react';
-import * as $ from 'jquery';
 import Artist from './Artist';
 import { authContext } from './AuthContext';
 import Header from './Header';
 import axios from 'axios';
-
-const urlData = {
-  endpoint: 'https://api.spotify.com/v1/me/top/',
-  type: 'artists',
-  limit: '50',
-};
+import { artistsUrl } from '../../Client';
 
 class TopArtists extends React.Component {
   constructor(props) {
@@ -23,15 +17,16 @@ class TopArtists extends React.Component {
 
   componentDidMount() {
     const timeRange = this.props.timeFrame;
-    const artistsUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
 
-    axios.get(artistsUrl).then(({ data }) => {
+    axios.get(artistsUrl(timeRange)).then(({ data }) => {
       const artists = [];
       for (let i = 0; i < data.items.length; i++) {
+        const imageLink = data.items[i].images[2] || data.items[i].images[1] || { url: 'logo.png' };
+
         artists.push({
           name: data.items[i].name,
           artistLink: data.items[i].external_urls.spotify,
-          imageLink: data.items[i].images[2].url,
+          imageLink: imageLink.url,
           popularity: data.items[i].popularity,
         });
       }

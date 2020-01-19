@@ -1,15 +1,9 @@
 import React from 'react';
-import * as $ from 'jquery';
 import Track from './Track';
 import { authContext } from './AuthContext';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import axios from 'axios';
-
-const urlData = {
-  endpoint: 'https://api.spotify.com/v1/me/top/',
-  type: 'tracks',
-  limit: '50',
-};
+import { tracksUrl } from '../../Client';
 
 const popLabels = ['0-9', '10-19', '20-39', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '90-100'];
 
@@ -27,10 +21,7 @@ class TopTracks extends React.Component {
   static contextType = authContext;
 
   componentDidMount() {
-    const timeRange = this.props.timeFrame;
-    const tracksUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
-
-    axios.get(tracksUrl).then(({ data }) => {
+    axios.get(tracksUrl(this.props.timeFrame)).then(({ data }) => {
       const tracks = [];
       let artistPlays = new Map();
       let popularityArr = Array(10).fill(0);

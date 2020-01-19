@@ -1,21 +1,16 @@
 import React from 'react';
-import * as $ from 'jquery';
 import Track from './Track';
 import { Doughnut, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
 import { authContext } from './AuthContext';
 import Header from './Header';
 import axios from 'axios';
+import { playedUrl } from '../../Client';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
   return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
 }
-
-const urlData = {
-  endpoint: 'https://api.spotify.com/v1/me/player/recently-played',
-  limit: '50',
-};
 
 const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -75,7 +70,6 @@ class RecentPlayed extends React.Component {
   static contextType = authContext;
 
   componentDidMount() {
-    const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`;
     const today = new Date();
 
     axios.get(playedUrl).then(({ data }) => {
