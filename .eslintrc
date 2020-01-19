@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "airbnb",
+        "pluigin:prettier/recommended",
+        "plugin:jsx-ally/recommended"
+    ],
+    "plugins": [
+        "prettier",
+        "jsx-ally"
+    ],
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true
+    }
+}

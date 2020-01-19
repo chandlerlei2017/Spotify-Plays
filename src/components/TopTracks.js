@@ -1,8 +1,8 @@
 import React from 'react';
 import * as $ from 'jquery';
-import Track from './Track.js'
-import {authContext} from './AuthContext.js'
-import {Doughnut, Bar} from 'react-chartjs-2';
+import Track from './Track.js';
+import { authContext } from './AuthContext.js';
+import { Doughnut, Bar } from 'react-chartjs-2';
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -20,7 +20,7 @@ class TopTracks extends React.Component {
       trackList: [],
       artistPlays: new Map(),
       popularityArr: [],
-    }
+    };
     this.tickMin = this.tickMin.bind(this);
   }
   static contextType = authContext;
@@ -32,10 +32,10 @@ class TopTracks extends React.Component {
     $.ajax({
       url: tracksUrl,
       type: 'GET',
-      beforeSend: (xhr) => {
+      beforeSend: xhr => {
         xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
       },
-      success: (data) => {
+      success: data => {
         const tracks = [];
         let artistPlays = new Map();
         let popularityArr = Array(10).fill(0);
@@ -48,9 +48,8 @@ class TopTracks extends React.Component {
             artists[data.items[i].artists[j].name] = data.items[i].artists[j].external_urls.spotify;
 
             if (artistPlays.has(artistName)) {
-              artistPlays.set(artistName,  artistPlays.get(artistName) + 1);
-            }
-            else {
+              artistPlays.set(artistName, artistPlays.get(artistName) + 1);
+            } else {
               artistPlays.set(artistName, 1);
             }
           }
@@ -62,13 +61,12 @@ class TopTracks extends React.Component {
             image: data.items[i].album.images[2].url,
             play: data.items[i].external_urls.spotify,
             popularity: data.items[i].popularity,
-            albumLink: data.items[i].album.external_urls.spotify
+            albumLink: data.items[i].album.external_urls.spotify,
           });
-          if(data.items[i].popularity === 100) {
+          if (data.items[i].popularity === 100) {
             popularityArr[9] += 1;
-          }
-          else {
-            popularityArr[Math.floor(data.items[i].popularity/10)] += 1;
+          } else {
+            popularityArr[Math.floor(data.items[i].popularity / 10)] += 1;
           }
         }
 
@@ -77,7 +75,7 @@ class TopTracks extends React.Component {
           artistPlays: artistPlays,
           popularityArr: popularityArr,
         }));
-      }
+      },
     });
   }
 
@@ -85,10 +83,9 @@ class TopTracks extends React.Component {
     let index = 0;
 
     for (let i = 0; i < 10; i++) {
-      if(this.state.popularityArr[i] === 0) {
+      if (this.state.popularityArr[i] === 0) {
         index++;
-      }
-      else {
+      } else {
         break;
       }
     }
@@ -100,9 +97,7 @@ class TopTracks extends React.Component {
     const dispTracks = [];
 
     for (let i = 0; i < this.state.trackList.length; i++) {
-      dispTracks.push(
-        <Track key={ this.state.trackList[i].name } num={i + 1} track={ this.state.trackList[i] }></Track>
-      )
+      dispTracks.push(<Track key={this.state.trackList[i].name} num={i + 1} track={this.state.trackList[i]}></Track>);
     }
 
     let style;
@@ -113,10 +108,9 @@ class TopTracks extends React.Component {
         visibility: 'visible',
         height: '100%',
         opacity: '1',
-      }
+      };
       className = 'display-transition';
-    }
-    else{
+    } else {
       style = {
         visibility: 'hidden',
         height: '0',
@@ -126,10 +120,12 @@ class TopTracks extends React.Component {
 
     const pieChartData = {
       labels: [...this.state.artistPlays.keys()],
-      datasets: [{
-        data: [...this.state.artistPlays.values()],
-      }],
-    }
+      datasets: [
+        {
+          data: [...this.state.artistPlays.values()],
+        },
+      ],
+    };
 
     const pieChartOptions = {
       legend: {
@@ -137,10 +133,10 @@ class TopTracks extends React.Component {
       },
       plugins: {
         colorschemes: {
-            scheme: 'tableau.RedGold21'
-        }
-      }
-    }
+          scheme: 'tableau.RedGold21',
+        },
+      },
+    };
 
     const barData = {
       labels: popLabels,
@@ -152,9 +148,9 @@ class TopTracks extends React.Component {
           borderWidth: 1,
           hoverBackgroundColor: 'rgba(255,99,132,0.6)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: this.state.popularityArr
-        }
-      ]
+          data: this.state.popularityArr,
+        },
+      ],
     };
 
     const barOptions = {
@@ -162,7 +158,8 @@ class TopTracks extends React.Component {
         display: false,
       },
       scales: {
-        xAxes: [{
+        xAxes: [
+          {
             scaleLabel: {
               display: true,
               labelString: 'Popularity',
@@ -175,59 +172,62 @@ class TopTracks extends React.Component {
             gridLines: {
               borderDash: [8, 4],
               drawBorder: true,
-              color: "#b3b3b3",
+              color: '#b3b3b3',
             },
-        }],
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Tracks',
-            fontColor: '#b3b3b3',
           },
-          ticks: {
-            fontColor: '#b3b3b3',
+        ],
+        yAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: 'Tracks',
+              fontColor: '#b3b3b3',
+            },
+            ticks: {
+              fontColor: '#b3b3b3',
+            },
+            gridLines: {
+              borderDash: [8, 4],
+              drawBorder: true,
+              color: '#b3b3b3',
+            },
           },
-          gridLines: {
-            borderDash: [8, 4],
-            drawBorder: true,
-            color: "#b3b3b3",
-          },
-        }]
+        ],
       },
-    }
+    };
 
-    return(
-      <div className = {className} style={style}>
-        <div className='row'>
-        <div className='col-sm-6'>
-            <div className='p-3 mb-5 track rounded text-center transition-3d-hover'>
-              <h3 className='mb-5'>Artists in Tracks</h3>
-              <Doughnut data={pieChartData} options={pieChartOptions}/>
+    return (
+      <div className={className} style={style}>
+        <div className="row">
+          <div className="col-sm-6">
+            <div className="p-3 mb-5 track rounded text-center transition-3d-hover">
+              <h3 className="mb-5">Artists in Tracks</h3>
+              <Doughnut data={pieChartData} options={pieChartOptions} />
             </div>
           </div>
-          <div className='col-sm-6'>
-            <div className='p-3 mb-5 track rounded text-center transition-3d-hover'>
-              <h3 className='mb-5'>Number of Tracks by Popularity</h3>
+          <div className="col-sm-6">
+            <div className="p-3 mb-5 track rounded text-center transition-3d-hover">
+              <h3 className="mb-5">Number of Tracks by Popularity</h3>
               <Bar data={barData} options={barOptions}></Bar>
             </div>
           </div>
-          <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
-            <div className='col-sm-3 center'>
+          <div className="pl-3 pr-3 row full-width ml-3 mr-3">
+            <div className="col-sm-3 center">
               <h4>Song</h4>
             </div>
-            <div className='col-sm-3 center'>
+            <div className="col-sm-3 center">
               <h4>Album</h4>
             </div>
-            <div className='col-sm-3 center'>
+            <div className="col-sm-3 center">
               <h4>Artists</h4>
             </div>
-            <div className='col-sm-3 center row'>
-              <div className='col-sm-12'>
+            <div className="col-sm-3 center row">
+              <div className="col-sm-12">
                 <h4>Track Popularity</h4>
               </div>
             </div>
           </div>
-          <hr className='track-divider ml-3 mr-3'/>
+          <hr className="track-divider ml-3 mr-3" />
           {dispTracks}
         </div>
       </div>

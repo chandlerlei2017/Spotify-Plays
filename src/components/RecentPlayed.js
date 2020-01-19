@@ -1,10 +1,10 @@
 import React from 'react';
 import * as $ from 'jquery';
-import Track from './Track.js'
-import {Doughnut, Scatter} from 'react-chartjs-2';
+import Track from './Track.js';
+import { Doughnut, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
-import {authContext} from './AuthContext.js'
-import Header from './Header.js'
+import { authContext } from './AuthContext.js';
+import Header from './Header.js';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -18,40 +18,36 @@ const urlData = {
 
 const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-function getTimePoint(dateMax, dateMin, date){
-  return 6*(parseISOString(date) - dateMin)/(dateMax - dateMin);
+function getTimePoint(dateMax, dateMin, date) {
+  return (6 * (parseISOString(date) - dateMin)) / (dateMax - dateMin);
 }
 
 function getTimeInterval(dateNow, dateMin) {
-  const min = (dateNow - parseISOString(dateMin))/60000
+  const min = (dateNow - parseISOString(dateMin)) / 60000;
   let timeInterval;
   let timeUnit;
   let earlyDate;
 
   if (min <= 180) {
     timeUnit = 'min';
-    timeInterval = Math.ceil(min/30)*5;
-    earlyDate = new Date(dateNow - 6*timeInterval*60*1000);
-  }
-  else if (min <= 4320) {
+    timeInterval = Math.ceil(min / 30) * 5;
+    earlyDate = new Date(dateNow - 6 * timeInterval * 60 * 1000);
+  } else if (min <= 4320) {
     timeUnit = 'hour';
-    timeInterval = Math.ceil(min/360);
-    earlyDate = new Date(dateNow - 6*timeInterval*60*60*1000);
-  }
-  else if (min <= 34560) {
+    timeInterval = Math.ceil(min / 360);
+    earlyDate = new Date(dateNow - 6 * timeInterval * 60 * 60 * 1000);
+  } else if (min <= 34560) {
     timeUnit = 'day';
-    timeInterval = Math.ceil(min/8640);
-    earlyDate = new Date(dateNow - 6*timeInterval*24*60*60*1000);
-  }
-  else if (min <= 120960) {
-    timeUnit = 'week'
-    timeInterval = Math.ceil(min/60480);
-    earlyDate = new Date(dateNow - 6*timeInterval*7*24*60*60*1000);
-  }
-  else {
+    timeInterval = Math.ceil(min / 8640);
+    earlyDate = new Date(dateNow - 6 * timeInterval * 24 * 60 * 60 * 1000);
+  } else if (min <= 120960) {
+    timeUnit = 'week';
+    timeInterval = Math.ceil(min / 60480);
+    earlyDate = new Date(dateNow - 6 * timeInterval * 7 * 24 * 60 * 60 * 1000);
+  } else {
     timeUnit = 'month';
     timeInterval = 1;
-    earlyDate = new Date(dateNow - 6*timeInterval*30.4*7*24*60*60*1000);
+    earlyDate = new Date(dateNow - 6 * timeInterval * 30.4 * 7 * 24 * 60 * 60 * 1000);
   }
 
   return {
@@ -72,34 +68,32 @@ class RecentPlayed extends React.Component {
         timeUnit: null,
         timeInterval: null,
         earlyDate: null,
-      }
-    }
+      },
+    };
   }
   static contextType = authContext;
 
   componentDidMount() {
-    const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`
+    const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`;
     const today = new Date();
 
     $.ajax({
       url: playedUrl,
       type: 'GET',
-      beforeSend: (xhr) => {
+      beforeSend: xhr => {
         xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
       },
-      success: (data) => {
+      success: data => {
         const tracks = [];
         let artistPlays = new Map();
         let scatterData = [];
 
         const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
 
-        scatterData.push(
-          {
-            x: 6,
-            y: 50,
-          }
-        );
+        scatterData.push({
+          x: 6,
+          y: 50,
+        });
 
         for (let i = 0; i < data.items.length; i++) {
           let artists = {};
@@ -109,19 +103,16 @@ class RecentPlayed extends React.Component {
             artists[artistName] = data.items[i].track.artists[j].external_urls.spotify;
 
             if (artistPlays.has(artistName)) {
-              artistPlays.set(artistName,  artistPlays.get(artistName) + 1);
-            }
-            else {
+              artistPlays.set(artistName, artistPlays.get(artistName) + 1);
+            } else {
               artistPlays.set(artistName, 1);
             }
           }
 
-          scatterData.push(
-            {
-              x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
-              y: 50 - i,
-            }
-          );
+          scatterData.push({
+            x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
+            y: 50 - i,
+          });
 
           tracks.push({
             name: data.items[i].track.name,
@@ -135,12 +126,10 @@ class RecentPlayed extends React.Component {
           });
         }
 
-        scatterData.push(
-          {
-            x: Math.floor(scatterData[scatterData.length - 1].x),
-            y: 0,
-          }
-        );
+        scatterData.push({
+          x: Math.floor(scatterData[scatterData.length - 1].x),
+          y: 0,
+        });
 
         this.setState(prevState => ({
           trackList: [...prevState.trackList, ...tracks],
@@ -148,7 +137,7 @@ class RecentPlayed extends React.Component {
           scatterData: scatterData,
           timeData: timeData,
         }));
-      }
+      },
     });
   }
 
@@ -162,27 +151,24 @@ class RecentPlayed extends React.Component {
       let dispDate = '';
       if (date.toDateString() === today.toDateString()) {
         dispDate = date.toLocaleTimeString();
-      }
-      else if ((today-date)/3600000 < 24) {
+      } else if ((today - date) / 3600000 < 24) {
         dispDate = 'Yesterday - ' + date.toLocaleTimeString();
-      }
-      else if ((today-date)/3600000 < 96) {
+      } else if ((today - date) / 3600000 < 96) {
         dispDate = weekDay[date.getDay()] + ' - ' + date.toLocaleTimeString();
-      }
-      else {
+      } else {
         dispDate = date.toLocaleDateString();
       }
-      dispTracks.push(
-        <Track key={this.state.trackList[i].playedAt} track={this.state.trackList[i]} dispDate={dispDate}></Track>
-      )
+      dispTracks.push(<Track key={this.state.trackList[i].playedAt} track={this.state.trackList[i]} dispDate={dispDate}></Track>);
     }
 
     const pieChartData = {
       labels: [...this.state.artistPlays.keys()],
-      datasets: [{
-        data: [...this.state.artistPlays.values()],
-      }],
-    }
+      datasets: [
+        {
+          data: [...this.state.artistPlays.values()],
+        },
+      ],
+    };
 
     const pieChartOptions = {
       legend: {
@@ -190,10 +176,10 @@ class RecentPlayed extends React.Component {
       },
       plugins: {
         colorschemes: {
-            scheme: 'brewer.YlGn9'
-        }
-      }
-    }
+          scheme: 'brewer.YlGn9',
+        },
+      },
+    };
 
     const scatterData = {
       labels: ['Scatter'],
@@ -213,59 +199,64 @@ class RecentPlayed extends React.Component {
           pointHitRadius: 10,
           borderWidth: 1,
           showLine: true,
-          data: this.state.scatterData
-        }
-      ]
-    }
+          data: this.state.scatterData,
+        },
+      ],
+    };
 
     const scatterOptions = {
       legend: {
         display: false,
       },
       scales: {
-        xAxes: [{
+        xAxes: [
+          {
             scaleLabel: {
               display: true,
               labelString: 'Time',
               fontColor: '#b3b3b3',
             },
             ticks: {
-                max: 6,
-                stepSize: 1,
-                fontColor: '#b3b3b3',
-                callback: (value, index, values) => {
-                  if (value === 6) {
-                    return 'Now';
-                  }
-                  else {
-                    return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit}${this.state.timeData.timeInterval * (6 - value) === 1 ? '' : 's'}  ago`;
-                  }
+              max: 6,
+              stepSize: 1,
+              fontColor: '#b3b3b3',
+              callback: (value, index, values) => {
+                if (value === 6) {
+                  return 'Now';
+                } else {
+                  return `${this.state.timeData.timeInterval * (6 - value)} ${this.state.timeData.timeUnit}${
+                    this.state.timeData.timeInterval * (6 - value) === 1 ? '' : 's'
+                  }  ago`;
                 }
+              },
             },
             gridLines: {
               borderDash: [8, 4],
               drawBorder: true,
-              color: "#b3b3b3",
+              color: '#b3b3b3',
             },
-        }],
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Tracks Played',
-            fontColor: '#b3b3b3',
           },
-          ticks: {
-            min: 0,
-            max: 50,
-            stepSize: 5,
-            fontColor: '#b3b3b3'
+        ],
+        yAxes: [
+          {
+            scaleLabel: {
+              display: true,
+              labelString: 'Tracks Played',
+              fontColor: '#b3b3b3',
+            },
+            ticks: {
+              min: 0,
+              max: 50,
+              stepSize: 5,
+              fontColor: '#b3b3b3',
+            },
+            gridLines: {
+              borderDash: [8, 4],
+              drawBorder: true,
+              color: '#b3b3b3',
+            },
           },
-          gridLines: {
-            borderDash: [8, 4],
-            drawBorder: true,
-            color: "#b3b3b3",
-          },
-        }]
+        ],
       },
       tooltips: {
         displayColors: false,
@@ -273,11 +264,9 @@ class RecentPlayed extends React.Component {
           title: (tooltipItem, data) => {
             if (tooltipItem[0].index >= 1 && tooltipItem[0].index <= this.state.trackList.length) {
               return this.state.trackList[tooltipItem[0].index - 1].name;
-            }
-            else if (tooltipItem[0].index === 0) {
+            } else if (tooltipItem[0].index === 0) {
               return 'End';
-            }
-            else {
+            } else {
               return 'Start';
             }
           },
@@ -289,47 +278,47 @@ class RecentPlayed extends React.Component {
           },
         },
       },
-    }
+    };
 
-    return(
-      <div className = 'mt-5'>
-        <Header title={`Recently Played Tracks (Last ${this.state.trackList.length})`} id='recentPlayed'>
+    return (
+      <div className="mt-5">
+        <Header title={`Recently Played Tracks (Last ${this.state.trackList.length})`} id="recentPlayed">
           The most recent tracks you played, up to 50
         </Header>
-        <div className='row'>
-          <div className='col-sm-6 mb-5'>
-            <div className='p-3 track rounded text-center transition-3d-hover'>
-              <h3 className='mb-5'>Artists in Recent Tracks</h3>
-              <Doughnut data={pieChartData} options={pieChartOptions}/>
+        <div className="row">
+          <div className="col-sm-6 mb-5">
+            <div className="p-3 track rounded text-center transition-3d-hover">
+              <h3 className="mb-5">Artists in Recent Tracks</h3>
+              <Doughnut data={pieChartData} options={pieChartOptions} />
             </div>
           </div>
-          <div className='col-sm-6 mb-5'>
-            <div className='p-3 track rounded text-center transition-3d-hover'>
-              <h3 className='mb-5'>Recent Tracks Time Distribution</h3>
-              <Scatter data={scatterData} options={scatterOptions}/>
+          <div className="col-sm-6 mb-5">
+            <div className="p-3 track rounded text-center transition-3d-hover">
+              <h3 className="mb-5">Recent Tracks Time Distribution</h3>
+              <Scatter data={scatterData} options={scatterOptions} />
             </div>
           </div>
 
-          <div className='pl-3 pr-3 row full-width ml-3 mr-3'>
-            <div className='col-sm-3 center'>
+          <div className="pl-3 pr-3 row full-width ml-3 mr-3">
+            <div className="col-sm-3 center">
               <h4>Song</h4>
             </div>
-            <div className='col-sm-3 center'>
+            <div className="col-sm-3 center">
               <h4>Album</h4>
             </div>
-            <div className='col-sm-2 center'>
+            <div className="col-sm-2 center">
               <h4>Artists</h4>
             </div>
-            <div className='col-sm-4 center row'>
-              <div className='col-sm-8 center'>
+            <div className="col-sm-4 center row">
+              <div className="col-sm-8 center">
                 <h4>Track Popularity</h4>
               </div>
-              <div className='col-sm-4 center'>
+              <div className="col-sm-4 center">
                 <h4>Played</h4>
               </div>
             </div>
           </div>
-          <hr className='track-divider ml-3 mr-3'/>
+          <hr className="track-divider ml-3 mr-3" />
           {dispTracks}
         </div>
       </div>
