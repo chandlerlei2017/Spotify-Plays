@@ -1,10 +1,10 @@
 import React from 'react';
 import * as $ from 'jquery';
-import Track from './Track.js';
+import Track from './Track';
 import { Doughnut, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
-import { authContext } from './AuthContext.js';
-import Header from './Header.js';
+import { authContext } from './AuthContext';
+import Header from './Header';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);

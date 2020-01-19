@@ -1,7 +1,7 @@
 import React from 'react';
 import * as $ from 'jquery';
-import Track from './Track.js';
-import { authContext } from './AuthContext.js';
+import Track from './Track';
+import { authContext } from './AuthContext';
 import { Doughnut, Bar } from 'react-chartjs-2';
 
 const urlData = {

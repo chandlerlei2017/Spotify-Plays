@@ -1,5 +1,5 @@
 import React from 'react';
-import PopularityBar from './PopularityBar.js';
+import PopularityBar from './PopularityBar';
 
 function Track(props) {
   let dateComp = null;

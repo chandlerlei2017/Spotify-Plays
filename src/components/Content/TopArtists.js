@@ -1,8 +1,8 @@
 import React from 'react';
 import * as $ from 'jquery';
-import Artist from './Artist.js';
-import { authContext } from './AuthContext.js';
-import Header from './Header.js';
+import Artist from './Artist';
+import { authContext } from './AuthContext';
+import Header from './Header';
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',

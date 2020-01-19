@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Login from './components/Login';
-import Content from './components/Content';
+import Content from './components/Content/index';
 import * as $ from 'jquery';
 
 const testUrl = 'https://api.spotify.com/v1/me';
