@@ -1,0 +1,307 @@
+{
+  "items": [
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02"
+      },
+      "followers": {
+        "href": null,
+        "total": 25972243
+      },
+      "genres": ["dance pop", "pop", "post-teen pop"],
+      "href": "https://api.spotify.com/v1/artists/06HL4z0CvFAxyc27GXpf02",
+      "id": "06HL4z0CvFAxyc27GXpf02",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/62b33d12e2b9a033cf77585f6e3d4b2c6b3a63a1",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/9ab124f3323d161f87fc9b7f8b82ab1717483b3a",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/d28b46cd7e1b7336d1688d462085535963a77311",
+          "width": 160
+        }
+      ],
+      "name": "Taylor Swift",
+      "popularity": 95,
+      "type": "artist",
+      "uri": "spotify:artist:06HL4z0CvFAxyc27GXpf02"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/0du5cEVh5yTK9QJze8zA0C"
+      },
+      "followers": {
+        "href": null,
+        "total": 23475337
+      },
+      "genres": ["dance pop", "pop"],
+      "href": "https://api.spotify.com/v1/artists/0du5cEVh5yTK9QJze8zA0C",
+      "id": "0du5cEVh5yTK9QJze8zA0C",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/aa32d6d4ca2467974403518dd3ebfe8831c5ced1",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/63cad86cb183568085a4e5f0be86aa187cc511e4",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/5461dcbb3f23e1df62d85c8273fc49cc4edd49d5",
+          "width": 160
+        }
+      ],
+      "name": "Bruno Mars",
+      "popularity": 91,
+      "type": "artist",
+      "uri": "spotify:artist:0du5cEVh5yTK9QJze8zA0C"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/4nDoRrQiYLoBzwC5BhVJzF"
+      },
+      "followers": {
+        "href": null,
+        "total": 14344810
+      },
+      "genres": ["dance pop", "pop", "post-teen pop"],
+      "href": "https://api.spotify.com/v1/artists/4nDoRrQiYLoBzwC5BhVJzF",
+      "id": "4nDoRrQiYLoBzwC5BhVJzF",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/667daebca4856db3f4cbe8f51a4881091e62c401",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/6628c8b4acfa56206eaf83edd561f0549f8f23df",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/9beb36d55d0a4784f4adf06fb506d292c688b8bf",
+          "width": 160
+        }
+      ],
+      "name": "Camila Cabello",
+      "popularity": 96,
+      "type": "artist",
+      "uri": "spotify:artist:4nDoRrQiYLoBzwC5BhVJzF"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/4GvEc3ANtPPjt1ZJllr5Zl"
+      },
+      "followers": {
+        "href": null,
+        "total": 2745626
+      },
+      "genres": ["pop", "pop rap", "post-teen pop"],
+      "href": "https://api.spotify.com/v1/artists/4GvEc3ANtPPjt1ZJllr5Zl",
+      "id": "4GvEc3ANtPPjt1ZJllr5Zl",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/45509320e642ccb504b927598857768df0468dc6",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/936b4dcfa48592e818552e347be5e3290d111293",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/78a5ee2f1543bf1fe3e1b507f7bb4f9bbb848be0",
+          "width": 160
+        }
+      ],
+      "name": "Bazzi",
+      "popularity": 86,
+      "type": "artist",
+      "uri": "spotify:artist:4GvEc3ANtPPjt1ZJllr5Zl"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/5JZ7CnR6gTvEMKX4g70Amv"
+      },
+      "followers": {
+        "href": null,
+        "total": 2162848
+      },
+      "genres": ["pop"],
+      "href": "https://api.spotify.com/v1/artists/5JZ7CnR6gTvEMKX4g70Amv",
+      "id": "5JZ7CnR6gTvEMKX4g70Amv",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/d763de4ee1f230d55719b5fcccd76984fcc2d290",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/0bc167ec9a5f07b22a30e61a156d35397923a3ff",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/712454ec150afd9d3e788858e3c970e157f6e535",
+          "width": 160
+        }
+      ],
+      "name": "Lauv",
+      "popularity": 91,
+      "type": "artist",
+      "uri": "spotify:artist:5JZ7CnR6gTvEMKX4g70Amv"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/7vk5e3vY1uw9plTHJAMwjN"
+      },
+      "followers": {
+        "href": null,
+        "total": 17625495
+      },
+      "genres": ["electro house"],
+      "href": "https://api.spotify.com/v1/artists/7vk5e3vY1uw9plTHJAMwjN",
+      "id": "7vk5e3vY1uw9plTHJAMwjN",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/c5c098af718b187525fb2f78527ebf89ea1b0466",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/bdb5d22cabf7f20b271b8074c49edc7995fa5080",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/2e3731126bbae5233d21259fa36c8b2d903da0db",
+          "width": 160
+        }
+      ],
+      "name": "Alan Walker",
+      "popularity": 89,
+      "type": "artist",
+      "uri": "spotify:artist:7vk5e3vY1uw9plTHJAMwjN"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/6VuMaDnrHyPL1p4EHjYLi7"
+      },
+      "followers": {
+        "href": null,
+        "total": 9150504
+      },
+      "genres": ["dance pop", "pop", "post-teen pop", "viral pop"],
+      "href": "https://api.spotify.com/v1/artists/6VuMaDnrHyPL1p4EHjYLi7",
+      "id": "6VuMaDnrHyPL1p4EHjYLi7",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/6402030b18deb0ba5d7cdbf2e6727a1f36c86030",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/7bdc816cb159789b89fccc4dd3cf8006a2bc0397",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/0fb2cbee0af45944265505a2a78cb4a466d767df",
+          "width": 160
+        }
+      ],
+      "name": "Charlie Puth",
+      "popularity": 85,
+      "type": "artist",
+      "uri": "spotify:artist:6VuMaDnrHyPL1p4EHjYLi7"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/3BmGtnKgCSGYIUhmivXKWX"
+      },
+      "followers": {
+        "href": null,
+        "total": 6032159
+      },
+      "genres": ["dance pop", "neo mellow", "pop", "pop rock", "post-teen pop", "talent show"],
+      "href": "https://api.spotify.com/v1/artists/3BmGtnKgCSGYIUhmivXKWX",
+      "id": "3BmGtnKgCSGYIUhmivXKWX",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/0e874611a108fcd361c92a665a991ba18a852050",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/9c93bbf952dff60df8a71a761e55c370ab96daf5",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/5e225f06cf4f2c02262c0fa4b10886824c9b3890",
+          "width": 160
+        }
+      ],
+      "name": "Kelly Clarkson",
+      "popularity": 83,
+      "type": "artist",
+      "uri": "spotify:artist:3BmGtnKgCSGYIUhmivXKWX"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/7gAppWoH7pcYmphCVTXkzs"
+      },
+      "followers": {
+        "href": null,
+        "total": 3310516
+      },
+      "genres": ["boy band", "dance pop", "pop", "post-teen pop", "viral pop"],
+      "href": "https://api.spotify.com/v1/artists/7gAppWoH7pcYmphCVTXkzs",
+      "id": "7gAppWoH7pcYmphCVTXkzs",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/01ada1d729326cbabc3094ec9f46265d776284da",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/89a770016b44f20a630eb5a648ae1d34603ec532",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/525a4a902190b9daac466e7d460ea54406901467",
+          "width": 160
+        }
+      ],
+      "name": "The Vamps",
+      "popularity": 79,
+      "type": "artist",
+      "uri": "spotify:artist:7gAppWoH7pcYmphCVTXkzs"
+    }
+  ],
+  "total": 9,
+  "limit": 50,
+  "offset": 0,
+  "href": "https://api.spotify.com/v1/me/top/artists?limit=50&offset=0&time_range=short_term",
+  "previous": null,
+  "next": null
+}
