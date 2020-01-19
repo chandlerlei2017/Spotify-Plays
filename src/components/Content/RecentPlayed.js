@@ -72,7 +72,7 @@ class RecentPlayed extends React.Component {
   componentDidMount() {
     const today = new Date();
 
-    axios.get(playedUrl).then(({ data }) => {
+    axios.get(playedUrl(this.context ? true : false)).then(({ data }) => {
       const tracks = [];
       let artistPlays = new Map();
       let scatterData = [];

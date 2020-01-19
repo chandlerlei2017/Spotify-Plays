@@ -18,7 +18,7 @@ class TopArtists extends React.Component {
   componentDidMount() {
     const timeRange = this.props.timeFrame;
 
-    axios.get(artistsUrl(timeRange)).then(({ data }) => {
+    axios.get(artistsUrl(this.context, timeRange)).then(({ data }) => {
       const artists = [];
       for (let i = 0; i < data.items.length; i++) {
         const imageLink = data.items[i].images[2] || data.items[i].images[1] || { url: 'logo.png' };

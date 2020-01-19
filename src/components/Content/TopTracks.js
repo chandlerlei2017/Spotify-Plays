@@ -21,7 +21,7 @@ class TopTracks extends React.Component {
   static contextType = authContext;
 
   componentDidMount() {
-    axios.get(tracksUrl(this.props.timeFrame)).then(({ data }) => {
+    axios.get(tracksUrl(this.context, this.props.timeFrame)).then(({ data }) => {
       const tracks = [];
       let artistPlays = new Map();
       let popularityArr = Array(10).fill(0);

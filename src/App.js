@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import Login from './components/Login';
 import Content from './components/Content/index';
-import { setAuth, initAxios } from './Client';
+import { setAuth } from './Client';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -16,10 +16,15 @@ class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    initAxios();
-
+  setHash = async () => {
     const token = window.location.hash.split('&')[0].split('=')[1];
+    const demo = window.location.hash.split('#')[1];
+
+    if (demo == 'demo') {
+      this.setState({ demo: true });
+    } else {
+      this.setState({ demo: false });
+    }
 
     if (token) {
       setAuth(token);
@@ -32,6 +37,11 @@ class App extends React.Component {
     this.setState({
       loaded: true,
     });
+  };
+
+  async componentDidMount() {
+    this.setHash();
+    window.addEventListener('hashchange', this.setHash, false);
   }
 
   termOnClick = e => {
@@ -41,9 +51,7 @@ class App extends React.Component {
   };
 
   setDemo = () => {
-    this.setState({
-      demo: true,
-    });
+    window.location.hash = 'demo';
   };
 
   render() {
