@@ -32,3 +32,5 @@ function ButtonGroup(props) {
     </div>
   );
 }
+
+export default ButtonGroup;
