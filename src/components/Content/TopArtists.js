@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import Artist from './Artist';
 import { authContext } from './AuthContext';
 import Header from './Header';
+import axios from 'axios';
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -24,27 +25,20 @@ class TopArtists extends React.Component {
     const timeRange = this.props.timeFrame;
     const artistsUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
 
-    $.ajax({
-      url: artistsUrl,
-      type: 'GET',
-      beforeSend: xhr => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
-      },
-      success: data => {
-        const artists = [];
-        for (let i = 0; i < data.items.length; i++) {
-          artists.push({
-            name: data.items[i].name,
-            artistLink: data.items[i].external_urls.spotify,
-            imageLink: data.items[i].images[2].url,
-            popularity: data.items[i].popularity,
-          });
-        }
+    axios.get(artistsUrl).then(({ data }) => {
+      const artists = [];
+      for (let i = 0; i < data.items.length; i++) {
+        artists.push({
+          name: data.items[i].name,
+          artistLink: data.items[i].external_urls.spotify,
+          imageLink: data.items[i].images[2].url,
+          popularity: data.items[i].popularity,
+        });
+      }
 
-        this.setState(prevState => ({
-          artists: [...prevState.artists, ...artists],
-        }));
-      },
+      this.setState(prevState => ({
+        artists: [...prevState.artists, ...artists],
+      }));
     });
   }
 

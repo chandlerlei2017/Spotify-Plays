@@ -13,14 +13,23 @@ const authUrl = `${authUrlData.endpoint}?client_id=${authUrlData.clientId}&redir
   '%20',
 )}&response_type=${authUrlData.responseType}`;
 
-function Login() {
+function Login({ setDemo }) {
   return (
     <div className="App">
       <header className="App-header" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(${Background})` }}>
         <h1 className="mb-5 title">Spotify-Tracks</h1>
-        <a className="btn btn-primary login-button pl-5 pr-5" href={authUrl}>
-          LOGIN
-        </a>
+        <div className="row">
+          <div className="col-sm-6">
+            <a className="btn btn-primary login-button pl-5 pr-5" href={authUrl}>
+              LOGIN
+            </a>
+          </div>
+          <div className="col-sm-6">
+            <button className="btn btn-primary login-button pl-5 pr-5" onClick={setDemo}>
+              DEMO
+            </button>
+          </div>
+        </div>
       </header>
     </div>
   );

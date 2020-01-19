@@ -20,7 +20,6 @@ const humanizeTerm = term => {
 
 function Content({ authToken, term, termOnClick }) {
   const terms = humanizeTerm(term);
-
   return (
     <React.Fragment>
       <div className="header">

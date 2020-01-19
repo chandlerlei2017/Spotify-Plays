@@ -5,6 +5,7 @@ import { Doughnut, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-colorschemes';
 import { authContext } from './AuthContext';
 import Header from './Header';
+import axios from 'axios';
 
 function parseISOString(s) {
   var b = s.split(/\D+/);
@@ -77,67 +78,60 @@ class RecentPlayed extends React.Component {
     const playedUrl = `${urlData.endpoint}?limit=${urlData.limit}`;
     const today = new Date();
 
-    $.ajax({
-      url: playedUrl,
-      type: 'GET',
-      beforeSend: xhr => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
-      },
-      success: data => {
-        const tracks = [];
-        let artistPlays = new Map();
-        let scatterData = [];
+    axios.get(playedUrl).then(({ data }) => {
+      const tracks = [];
+      let artistPlays = new Map();
+      let scatterData = [];
 
-        const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
+      const timeData = getTimeInterval(today, data.items[data.items.length - 1].played_at);
 
-        scatterData.push({
-          x: 6,
-          y: 50,
-        });
+      scatterData.push({
+        x: 6,
+        y: 50,
+      });
 
-        for (let i = 0; i < data.items.length; i++) {
-          let artists = {};
+      for (let i = 0; i < data.items.length; i++) {
+        let artists = {};
 
-          for (let j = 0; j < data.items[i].track.artists.length; j++) {
-            const artistName = data.items[i].track.artists[j].name;
-            artists[artistName] = data.items[i].track.artists[j].external_urls.spotify;
+        for (let j = 0; j < data.items[i].track.artists.length; j++) {
+          const artistName = data.items[i].track.artists[j].name;
+          artists[artistName] = data.items[i].track.artists[j].external_urls.spotify;
 
-            if (artistPlays.has(artistName)) {
-              artistPlays.set(artistName, artistPlays.get(artistName) + 1);
-            } else {
-              artistPlays.set(artistName, 1);
-            }
+          if (artistPlays.has(artistName)) {
+            artistPlays.set(artistName, artistPlays.get(artistName) + 1);
+          } else {
+            artistPlays.set(artistName, 1);
           }
-
-          scatterData.push({
-            x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
-            y: 50 - i,
-          });
-
-          tracks.push({
-            name: data.items[i].track.name,
-            album: data.items[i].track.album.name,
-            artists: artists,
-            image: data.items[i].track.album.images[2].url,
-            play: data.items[i].track.external_urls.spotify,
-            albumLink: data.items[i].track.album.external_urls.spotify,
-            popularity: data.items[i].track.popularity,
-            playedAt: data.items[i].played_at,
-          });
         }
 
         scatterData.push({
-          x: Math.floor(scatterData[scatterData.length - 1].x),
-          y: 0,
+          x: getTimePoint(today, timeData.earlyDate, data.items[i].played_at),
+          y: 50 - i,
         });
 
-        this.setState(prevState => ({
-          trackList: [...prevState.trackList, ...tracks],
-          artistPlays: artistPlays,
-          scatterData: scatterData,
-          timeData: timeData,
-        }));
-      },
+        tracks.push({
+          name: data.items[i].track.name,
+          album: data.items[i].track.album.name,
+          artists: artists,
+          image: data.items[i].track.album.images[2].url,
+          play: data.items[i].track.external_urls.spotify,
+          albumLink: data.items[i].track.album.external_urls.spotify,
+          popularity: data.items[i].track.popularity,
+          playedAt: data.items[i].played_at,
+        });
+      }
+
+      scatterData.push({
+        x: Math.floor(scatterData[scatterData.length - 1].x),
+        y: 0,
+      });
+
+      this.setState(prevState => ({
+        trackList: [...prevState.trackList, ...tracks],
+        artistPlays: artistPlays,
+        scatterData: scatterData,
+        timeData: timeData,
+      }));
     });
   }
 

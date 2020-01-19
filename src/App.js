@@ -3,6 +3,8 @@ import './App.scss';
 import Login from './components/Login';
 import Content from './components/Content/index';
 import * as $ from 'jquery';
+import { setAuth } from './Client';
+import axios from 'axios';
 
 const testUrl = 'https://api.spotify.com/v1/me';
 
@@ -13,30 +15,19 @@ class App extends React.Component {
       authToken: '',
       loaded: false,
       term: 'short_term',
+      demo: false,
     };
-    this.termOnClick = this.termOnClick.bind(this);
   }
 
   async componentDidMount() {
     const token = window.location.hash.split('&')[0].split('=')[1];
 
     if (token) {
-      try {
-        await $.ajax({
-          url: testUrl,
-          type: 'GET',
-          beforeSend: xhr => {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-          },
-          success: () => {
-            this.setState({
-              authToken: token,
-            });
-          },
-        });
-      } catch (e) {
-        console.log(e);
-      }
+      setAuth(token);
+
+      await axios.get(testUrl).then(() => {
+        this.setState({ authToken: token });
+      });
     }
 
     this.setState({
@@ -44,17 +35,23 @@ class App extends React.Component {
     });
   }
 
-  termOnClick(e) {
+  termOnClick = e => {
     this.setState({
       term: e.target.id,
     });
-  }
+  };
+
+  setDemo = () => {
+    this.setState({
+      demo: true,
+    });
+  };
 
   render() {
     if (this.state.loaded === false) {
       return null;
-    } else if (!this.state.authToken) {
-      return <Login />;
+    } else if (!this.state.authToken && !this.state.demo) {
+      return <Login setDemo={this.setDemo} />;
     } else {
       return <Content authToken={this.state.authToken} term={this.state.term} termOnClick={this.termOnClick} />;
     }

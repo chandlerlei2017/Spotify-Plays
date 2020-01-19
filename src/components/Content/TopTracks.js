@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import Track from './Track';
 import { authContext } from './AuthContext';
 import { Doughnut, Bar } from 'react-chartjs-2';
+import axios from 'axios';
 
 const urlData = {
   endpoint: 'https://api.spotify.com/v1/me/top/',
@@ -29,53 +30,46 @@ class TopTracks extends React.Component {
     const timeRange = this.props.timeFrame;
     const tracksUrl = `${urlData.endpoint + urlData.type}?limit=${urlData.limit}&time_range=${timeRange}`;
 
-    $.ajax({
-      url: tracksUrl,
-      type: 'GET',
-      beforeSend: xhr => {
-        xhr.setRequestHeader('Authorization', 'Bearer ' + this.context);
-      },
-      success: data => {
-        const tracks = [];
-        let artistPlays = new Map();
-        let popularityArr = Array(10).fill(0);
+    axios.get(tracksUrl).then(({ data }) => {
+      const tracks = [];
+      let artistPlays = new Map();
+      let popularityArr = Array(10).fill(0);
 
-        for (let i = 0; i < data.items.length; i++) {
-          const artists = {};
+      for (let i = 0; i < data.items.length; i++) {
+        const artists = {};
 
-          for (let j = 0; j < data.items[i].artists.length; j++) {
-            const artistName = data.items[i].artists[j].name;
-            artists[data.items[i].artists[j].name] = data.items[i].artists[j].external_urls.spotify;
+        for (let j = 0; j < data.items[i].artists.length; j++) {
+          const artistName = data.items[i].artists[j].name;
+          artists[data.items[i].artists[j].name] = data.items[i].artists[j].external_urls.spotify;
 
-            if (artistPlays.has(artistName)) {
-              artistPlays.set(artistName, artistPlays.get(artistName) + 1);
-            } else {
-              artistPlays.set(artistName, 1);
-            }
-          }
-
-          tracks.push({
-            name: data.items[i].name,
-            album: data.items[i].album.name,
-            artists: artists,
-            image: data.items[i].album.images[2].url,
-            play: data.items[i].external_urls.spotify,
-            popularity: data.items[i].popularity,
-            albumLink: data.items[i].album.external_urls.spotify,
-          });
-          if (data.items[i].popularity === 100) {
-            popularityArr[9] += 1;
+          if (artistPlays.has(artistName)) {
+            artistPlays.set(artistName, artistPlays.get(artistName) + 1);
           } else {
-            popularityArr[Math.floor(data.items[i].popularity / 10)] += 1;
+            artistPlays.set(artistName, 1);
           }
         }
 
-        this.setState(prevState => ({
-          trackList: [...prevState.trackList, ...tracks],
-          artistPlays: artistPlays,
-          popularityArr: popularityArr,
-        }));
-      },
+        tracks.push({
+          name: data.items[i].name,
+          album: data.items[i].album.name,
+          artists: artists,
+          image: data.items[i].album.images[2].url,
+          play: data.items[i].external_urls.spotify,
+          popularity: data.items[i].popularity,
+          albumLink: data.items[i].album.external_urls.spotify,
+        });
+        if (data.items[i].popularity === 100) {
+          popularityArr[9] += 1;
+        } else {
+          popularityArr[Math.floor(data.items[i].popularity / 10)] += 1;
+        }
+      }
+
+      this.setState(prevState => ({
+        trackList: [...prevState.trackList, ...tracks],
+        artistPlays: artistPlays,
+        popularityArr: popularityArr,
+      }));
     });
   }
 
