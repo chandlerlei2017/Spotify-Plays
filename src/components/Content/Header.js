@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Header(props) {
+function Header({ margin, color, id, title, children }) {
   return (
-    <div className={props.margin === false ? '' : 'mt-5 mb-5'}>
-      <h2 className={props.color} id={props.id}>
-        {props.title}
+    <div className={margin === false ? '' : 'mt-5 mb-5'}>
+      <h2 className={color} id={id}>
+        {title}
       </h2>
-      <span className="text-grey">{props.children}</span>
+      <span className="text-grey">{children}</span>
       <hr className="track-divider" />
     </div>
   );
